@@ -81,8 +81,15 @@
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            transition: background 0.5s ease, color 0.5s ease;
+            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        #contact {
+            -webkit-user-select: text;
+            user-select: text;
         }
 
         /* Navigation */
@@ -99,7 +106,7 @@
             padding: 6px 8px;
             border-radius: 9999px;
             box-shadow: var(--shadow-glass);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav:hover {
@@ -125,7 +132,7 @@
             font-size: 14px;
             padding: 8px 16px;
             border-radius: 9999px;
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             display: block;
         }
 
@@ -160,7 +167,7 @@
             font-size: 14px;
             text-decoration: none;
             z-index: 1001;
-            transition: top 0.3s ease;
+            transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .skip-link:focus {
@@ -179,7 +186,7 @@
             justify-content: center;
             font-size: 16px;
             color: var(--text-secondary);
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             margin-left: 4px;
         }
 
@@ -339,7 +346,7 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow-glass);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project:hover {
@@ -389,6 +396,11 @@
             background: linear-gradient(135deg, #d4a017, #e6b422);
             border-radius: 8px;
             z-index: 1;
+        }
+
+        .project.hiding {
+            opacity: 0;
+            transform: scale(0.95);
         }
 
         .project.hidden {
@@ -490,7 +502,7 @@
 
         .project-link .arrow {
             font-size: 16px;
-            transition: transform 0.25s ease;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .project-link:hover .arrow {
@@ -538,7 +550,7 @@
             font-size: 15px;
             color: var(--text-primary);
             box-shadow: var(--shadow-glass);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .team-badge:hover {
@@ -645,7 +657,7 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 12px;
         }
 
@@ -660,7 +672,7 @@
             text-decoration: none;
             color: var(--text-primary);
             box-shadow: var(--shadow-glass);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .contact-item:hover {
@@ -854,25 +866,6 @@
         <div class="no-results">No projects found with that filter.</div>
 
         <div class="projects-grid">
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/ghosts.png" alt="Ghosts">
-                </div>
-                <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag world">World</span>
-                        <span class="tag fullstack">Full-Stack</span>
-                        <span class="tag leadrole">Lead Role</span>
-                        <span class="tag year">2026</span>
-                    </div>
-                    <h3>Ghosts</h3>
-                    <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
-                    </a>
-                </div>
-            </div>
-
             <div class="project featured">
                 <div class="project-image">
                     <span class="featured-badge">Featured</span>
@@ -887,6 +880,25 @@
                     <h3>Caves Expanded Add-On</h3>
                     <p>Expand your world with 6 new cave biomes. These biomes add new mobs, dungeons, mechanics, items and blocks to ANY world!</p>
                     <a href="https://www.youtube.com/watch?v=SH-szxukL1U" class="project-link" target="_blank">
+                        Check out <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-image">
+                    <img src="resources/ghosts.png" alt="Ghosts">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag world">World</span>
+                        <span class="tag fullstack">Full-Stack</span>
+                        <span class="tag leadrole">Lead Role</span>
+                        <span class="tag year">2026</span>
+                    </div>
+                    <h3>Ghosts</h3>
+                    <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
+                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
                         Check out <span class="arrow">→</span>
                     </a>
                 </div>
@@ -1207,6 +1219,9 @@
                 const filter = btn.dataset.filter;
                 let visibleCount = 0;
 
+                const toShow = [];
+                const toHide = [];
+
                 projects.forEach(project => {
                     const tags = project.querySelectorAll('.tag');
                     const tagClasses = Array.from(tags).map(t =>
@@ -1214,14 +1229,34 @@
                     ).flat();
 
                     if (filter === 'all' || tagClasses.includes(filter)) {
-                        project.classList.remove('hidden');
+                        toShow.push(project);
                         visibleCount++;
                     } else {
-                        project.classList.add('hidden');
+                        toHide.push(project);
                     }
                 });
 
-                noResults.classList.toggle('show', visibleCount === 0);
+                toHide.forEach(p => p.classList.add('hiding'));
+
+                setTimeout(() => {
+                    toHide.forEach(p => {
+                        p.classList.add('hidden');
+                        p.classList.remove('hiding');
+                    });
+
+                    toShow.forEach(p => {
+                        p.classList.remove('hidden');
+                        p.classList.add('hiding');
+                    });
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            toShow.forEach(p => p.classList.remove('hiding'));
+                        });
+                    });
+
+                    noResults.classList.toggle('show', visibleCount === 0);
+                }, 300);
             });
         });
     </script>
