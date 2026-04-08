@@ -347,6 +347,43 @@
             box-shadow: var(--shadow-elevated);
         }
 
+        .project.featured {
+            grid-column: 1 / -1;
+            border: 1.5px solid var(--accent);
+            box-shadow: var(--shadow-glass), 0 0 20px rgba(0, 113, 227, 0.15);
+        }
+
+        [data-theme="dark"] .project.featured {
+            box-shadow: var(--shadow-glass), 0 0 24px rgba(10, 132, 255, 0.2);
+        }
+
+        .project.featured:hover {
+            box-shadow: var(--shadow-elevated), 0 0 30px rgba(0, 113, 227, 0.2);
+        }
+
+        [data-theme="dark"] .project.featured:hover {
+            box-shadow: var(--shadow-elevated), 0 0 36px rgba(10, 132, 255, 0.25);
+        }
+
+        .project-image {
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #fff;
+            background: var(--accent);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
         .project.hidden {
             display: none;
         }
@@ -354,7 +391,6 @@
         .project-image {
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            position: relative;
         }
 
         .project-image img {
@@ -796,8 +832,9 @@
         <div class="no-results">No projects found with that filter.</div>
 
         <div class="projects-grid">
-            <div class="project">
+            <div class="project featured">
                 <div class="project-image">
+                    <span class="featured-badge">Featured</span>
                     <img src="resources/cavesExpanded.png" alt="Caves Expanded Add-On">
                 </div>
                 <div class="project-info">
