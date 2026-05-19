@@ -34,6 +34,8 @@
                 0 32px 64px rgba(0, 0, 0, 0.1);
             --accent: #0071e3;
             --accent-secondary: #147ce5;
+            --section-separator-bright: rgba(255, 255, 255, 0.95);
+            --section-separator-dark: rgba(0, 0, 0, 0.12);
             --blur-amount: 24px;
         }
 
@@ -61,6 +63,8 @@
                 0 0 0 0.5px rgba(255, 255, 255, 0.1),
                 0 8px 16px rgba(0, 0, 0, 0.2),
                 0 32px 64px rgba(0, 0, 0, 0.4);
+            --section-separator-bright: rgba(255, 255, 255, 0.16);
+            --section-separator-dark: rgba(0, 0, 0, 0.75);
         }
 
         * {
@@ -202,9 +206,21 @@
 
         /* Sections */
         section {
+            position: relative;
             padding: 100px 24px 80px;
             max-width: 1120px;
             margin: 0 auto;
+        }
+
+        section:not(.hero)::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 2px;
+            background: linear-gradient(180deg, var(--section-separator-bright) 0 50%, var(--section-separator-dark) 50% 100%);
+            border-radius: 9999px;
         }
 
         /* Hero Section */
@@ -564,6 +580,36 @@
         .team-badge.msk:hover { background: #8b1a1a; color: #fff; }
         .team-badge.rareloot:hover { background: #1a3a6b; color: #fff; }
 
+        .ui-gallery-grid {
+            columns: 2 420px;
+            column-gap: 18px;
+        }
+
+        .ui-gallery-item {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin: 0 0 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glass);
+            overflow: hidden;
+            break-inside: avoid;
+            transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ui-gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .ui-gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* Skills Grid */
         .skills-section h3 {
             font-size: 14px;
@@ -728,17 +774,25 @@
         @media (max-width: 768px) {
             nav {
                 top: 12px;
-                padding: 6px 10px;
+                padding: 6px 8px;
+            }
+
+            .nav-brand {
+                display: none;
+            }
+
+            nav ul {
+                gap: 2px;
             }
 
             nav a {
-                font-size: 13px;
-                padding: 6px 12px;
+                font-size: 12px;
+                padding: 6px 8px;
             }
 
             .theme-toggle {
-                width: 32px;
-                height: 32px;
+                width: 30px;
+                height: 30px;
             }
 
             section {
@@ -787,6 +841,14 @@
                 gap: 16px;
             }
 
+            .ui-gallery-grid {
+                columns: 1;
+            }
+
+            .ui-gallery-item:hover {
+                transform: translateY(-4px);
+            }
+
             .skill-group {
                 padding: 20px;
             }
@@ -828,6 +890,7 @@
             <a href="#hero" class="nav-brand">Jainlyn</a>
             <ul>
                 <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#ui-gallery" class="nav-link">UI Gallery</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -1069,6 +1132,39 @@
                         Check out <span class="arrow">→</span>
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ui-gallery">
+        <div class="section-header">
+            <h2>UI Gallery</h2>
+            <p>Interface work for Minecraft Bedrock experiences</p>
+        </div>
+        <div class="ui-gallery-grid">
+            <div class="ui-gallery-item">
+                <img src="resources/UIA.png" alt="UI Gallery A">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIB.png" alt="UI Gallery B">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIC.png" alt="UI Gallery C">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UID.png" alt="UI Gallery D">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIE.png" alt="UI Gallery E">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIF.png" alt="UI Gallery F">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIG.png" alt="UI Gallery G">
+            </div>
+            <div class="ui-gallery-item">
+                <img src="resources/UIH.png" alt="UI Gallery H">
             </div>
         </div>
     </section>
