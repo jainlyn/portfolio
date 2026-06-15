@@ -204,6 +204,38 @@
         [data-theme="dark"] .theme-toggle .sun { display: none; }
         [data-theme="dark"] .theme-toggle .moon { display: block; }
 
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-left: 4px;
+            padding-left: 4px;
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        .language-btn {
+            background: transparent;
+            border: none;
+            border-radius: 9999px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 8px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .language-btn:hover {
+            background: var(--border-subtle);
+            color: var(--text-primary);
+        }
+
+        .language-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
         /* Sections */
         section {
             position: relative;
@@ -732,6 +764,36 @@
         [data-theme="dark"] .skill-dot.behaviour { background: #ff9f0a; }
         [data-theme="dark"] .skill-dot.resource { background: #bf5af2; }
 
+        .professional-activity-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .professional-activity-item {
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .professional-activity-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .professional-activity-value {
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
         /* Contact */
         #contact {
             display: flex;
@@ -887,6 +949,17 @@
                 height: 30px;
             }
 
+            .language-selector {
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+            }
+
+            .language-btn {
+                font-size: 11px;
+                padding: 6px 6px;
+            }
+
             section {
                 padding: 100px 16px 60px;
             }
@@ -949,6 +1022,11 @@
                 gap: 16px;
             }
 
+            .professional-activity-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
             .ui-gallery-grid {
                 columns: 1;
             }
@@ -992,20 +1070,26 @@
     </style>
 </head>
 <body>
-    <a href="#hero" class="skip-link">Skip to content</a>
+    <a href="#hero" class="skip-link" data-i18n="skip">Skip to content</a>
     <nav>
         <div class="nav-container">
             <a href="#hero" class="nav-brand">Jainlyn</a>
             <ul>
-                <li><a href="#work" class="nav-link">Work</a></li>
-                <li><a href="#ui-gallery" class="nav-link">UI Gallery</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#work" class="nav-link" data-i18n="navWork">Work</a></li>
+                <li><a href="#ui-gallery" class="nav-link" data-i18n="navUiGallery">UI Gallery</a></li>
+                <li><a href="#professional-activity" class="nav-link" data-i18n="navProfessionalActivity">Professional Activity</a></li>
+                <li><a href="#experience" class="nav-link" data-i18n="navExperience">Experience</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="navContact">Contact</a></li>
             </ul>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" data-i18n-aria="toggleTheme">
                 <span class="icon sun">&#9728;</span>
                 <span class="icon moon">&#9790;</span>
             </button>
+            <div class="language-selector">
+                <button class="language-btn active" data-language="en" onclick="setLanguage('en')">EN</button>
+                <button class="language-btn" data-language="de" onclick="setLanguage('de')">DE</button>
+                <button class="language-btn" data-language="fr" onclick="setLanguage('fr')">FR</button>
+            </div>
         </div>
     </nav>
 
@@ -1014,44 +1098,44 @@
         <div class="hero-content">
             <h1>Jainlyn</h1>
             <p class="hero-subtitle">Minecraft Bedrock Developer</p>
-            <p class="hero-description">Creating immersive add-ons and marketplace content for millions of players.</p>
-            <a href="#work" class="hero-cta">View my work <span>↓</span></a>
+            <p class="hero-description" data-i18n="heroDescription">Self-employed Minecraft Bedrock developer specializing in Marketplace content, commercial client projects, and game systems development.</p>
+            <a href="#work" class="hero-cta"><span data-i18n="viewWork">View my work</span> <span>↓</span></a>
         </div>
     </section>
 
     <section id="work">
         <div class="section-header">
-            <h2>Work</h2>
-            <p>Published Minecraft Bedrock Marketplace content</p>
+            <h2 data-i18n="workTitle">Work</h2>
+            <p data-i18n="workSubtitle">Published Minecraft Bedrock Marketplace content</p>
         </div>
 
         <div class="filter-container">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="addon">Add-On</button>
-            <button class="filter-btn" data-filter="leadrole">Lead Role</button>
-            <button class="filter-btn" data-filter="collaboration">Team-Work</button>
-            <button class="filter-btn" data-filter="world">World</button>
-            <button class="filter-btn" data-filter="free">FREE</button>
+            <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+            <button class="filter-btn" data-filter="addon" data-i18n="tagAddon">Add-On</button>
+            <button class="filter-btn" data-filter="leadrole" data-i18n="tagLeadRole">Lead Role</button>
+            <button class="filter-btn" data-filter="collaboration" data-i18n="tagTeamWork">Team-Work</button>
+            <button class="filter-btn" data-filter="world" data-i18n="tagWorld">World</button>
+            <button class="filter-btn" data-filter="free" data-i18n="tagFree">FREE</button>
         </div>
 
-        <div class="no-results">No projects found with that filter.</div>
+        <div class="no-results" data-i18n="noResults">No projects found with that filter.</div>
 
         <div class="projects-grid">
             <div class="project featured">
                 <div class="project-image">
-                    <span class="featured-badge">Featured</span>
+                    <span class="featured-badge" data-i18n="featured">Featured</span>
                     <img src="resources/blockpack.png" alt="BlockPack Add-on">
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag collaboration">Team-Work</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
                         <span class="tag year">2026</span>
                     </div>
                     <h3>BlockPack Add-on</h3>
                     <p>BlockPack Add-on adds +1000 CRAFTABLE &amp; 50 unique FUNCTIONAL new blocks</p>
                     <a href="https://www.minecraft.net/en-us/marketplace/pdp?id=8970dbd7-a3e1-4fc9-b74a-05e6acc6830f" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1062,14 +1146,14 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag fullstack">Full-Stack</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Caves Expanded Add-On</h3>
                     <p>Expand your world with 6 new cave biomes. These biomes add new mobs, dungeons, mechanics, items and blocks to ANY world!</p>
                     <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/caves-expanded-add--on/211125ac-e526-452b-87e5-1803eb3f3973" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1080,15 +1164,15 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag world">World</span>
-                        <span class="tag fullstack">Full-Stack</span>
-                        <span class="tag leadrole">Lead Role</span>
+                        <span class="tag world" data-i18n="tagWorld">World</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
+                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
                         <span class="tag year">2026</span>
                     </div>
                     <h3>Ghosts</h3>
                     <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
                     <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1099,15 +1183,15 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag collaboration">Team-Work</span>
-                        <span class="tag update">Update</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
+                        <span class="tag update" data-i18n="tagUpdate">Update</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Monsters 1.2 Add-On</h3>
                     <p>Add 20+ NEW MONSTERS to ANY WORLD! Find monsters across the world with naturally spawning biomes and 4 challenging bosses.</p>
                     <a href="https://marketplace.minecraft.net/en-us/pdp?id=ff268116-6450-44ed-a4b3-d25c1672b825" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1118,14 +1202,14 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag collaboration">Team-Work</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Mythical Conquest Add-On</h3>
                     <p>Embark on a medieval adventure filled with towering fantasy creatures! Test your strength in this upgraded survival experience.</p>
                     <a href="https://www.minecraft.net/en-us/marketplace/pdp/pathway-studios/mythical-conquest/e6e88bdf-4e9d-4860-91e2-b9cfd51a66f0" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1136,15 +1220,15 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag leadrole">Lead Role</span>
-                        <span class="tag fullstack">Full-Stack</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Biomes Expanded Add-On</h3>
                     <p>Coming soon...</p>
                     <a href="#" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1155,16 +1239,16 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag leadrole">Lead Role</span>
-                        <span class="tag fullstack">Full-Stack</span>
-                        <span class="tag free">FREE</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
+                        <span class="tag free" data-i18n="tagFree">FREE</span>
                         <span class="tag year">2026</span>
                     </div>
                     <h3>Jainlyn's Tools Add-On</h3>
                     <p>Coming soon...</p>
                     <a href="#" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1175,14 +1259,14 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag collaboration">Team-Work</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
                         <span class="tag year">2026</span>
                     </div>
                     <h3>Tools Add-On</h3>
                     <p>Coming soon...</p>
                     <a href="#" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1193,14 +1277,14 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag collaboration">Team-Work</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
                         <span class="tag year">2026</span>
                     </div>
                     <h3>Sky 2 Add-On</h3>
                     <p>Coming soon...</p>
                     <a href="#" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1211,15 +1295,15 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag leadrole">Lead Role</span>
-                        <span class="tag fullstack">Full-Stack</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Enderman Expansion Add-On</h3>
                     <p>Harness the mysterious might of the End with Enderman Expansion! Command a new array of powerful Enderman abilities and face off against a formidable Ender Boss.</p>
                     <a href="https://arcaniumcreations.com/games/enderman-expansion-add-on/" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
@@ -1230,22 +1314,22 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="tag addon">Add-On</span>
-                        <span class="tag fullstack">Full-Stack</span>
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
                         <span class="tag year">2025</span>
                     </div>
                     <h3>Amethyst Expansion Add-On</h3>
                     <p>Unleash the power of crystal with Amethyst Expansion! Master a brand-new arsenal of amethyst-infused tools and face off against powerful crystal-forged bosses.</p>
                     <a href="https://arcaniumcreations.com/games/amethyst-expansion-add-on/" class="project-link" target="_blank">
-                        Check out <span class="arrow">→</span>
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
             </div>
 
             <div class="future-projects">
-                <div class="future-projects-status">Separate Unpublished Pipeline</div>
-                <div class="future-projects-count">+6 Finished Unpublished Projects</div>
-                <div class="future-projects-text">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
+                <div class="future-projects-status" data-i18n="unpublishedStatus">Separate Unpublished Pipeline</div>
+                <div class="future-projects-count" data-i18n="unpublishedCount">+6 Finished Unpublished Projects</div>
+                <div class="future-projects-text" data-i18n="unpublishedText">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
                 <div class="future-projects-dates">
                     <span class="tag year">2026 Q3</span>
                     <span class="tag year">2026 Q4</span>
@@ -1257,8 +1341,8 @@
 
     <section id="ui-gallery">
         <div class="section-header">
-            <h2>UI Gallery</h2>
-            <p>Interface work for Minecraft Bedrock experiences</p>
+            <h2 data-i18n="uiGalleryTitle">UI Gallery</h2>
+            <p data-i18n="uiGallerySubtitle">Interface work for Minecraft Bedrock experiences</p>
         </div>
         <div class="ui-gallery-grid">
             <div class="ui-gallery-item">
@@ -1288,14 +1372,38 @@
         </div>
     </section>
 
+    <section id="professional-activity">
+        <div class="section-header">
+            <h2 data-i18n="professionalActivityTitle">Professional Activity</h2>
+        </div>
+        <div class="professional-activity-grid">
+            <div class="professional-activity-item">
+                <div class="professional-activity-label" data-i18n="activeSince">Active since</div>
+                <div class="professional-activity-value">2025</div>
+            </div>
+            <div class="professional-activity-item">
+                <div class="professional-activity-label" data-i18n="mainActivity">Main activity</div>
+                <div class="professional-activity-value" data-i18n="minecraftDevelopment">Minecraft Bedrock development</div>
+            </div>
+            <div class="professional-activity-item">
+                <div class="professional-activity-label" data-i18n="activityType">Type</div>
+                <div class="professional-activity-value" data-i18n="contractorType">Self-employed / independent contractor</div>
+            </div>
+            <div class="professional-activity-item">
+                <div class="professional-activity-label" data-i18n="clients">Clients</div>
+                <div class="professional-activity-value" data-i18n="clientCountries">Germany, UAE, France, Austria, etc.</div>
+            </div>
+        </div>
+    </section>
+
     <section id="experience">
         <div class="section-header">
-            <h2>Experience</h2>
-            <p>Teams and skills I've developed</p>
+            <h2 data-i18n="experienceTitle">Experience</h2>
+            <p data-i18n="experienceSubtitle">Teams and skills I've developed</p>
         </div>
         <div class="experience-content">
             <div class="teams-section">
-                <h3>Teams</h3>
+                <h3 data-i18n="teams">Teams</h3>
                 <div class="teams-row">
                     <span class="team-badge levelatics">Levelatics</span>
                     <span class="team-badge blockfactory">BlockFactory</span>
@@ -1307,37 +1415,37 @@
                 </div>
             </div>
             <div class="skills-section">
-                <h3>Skills</h3>
+                <h3 data-i18n="skills">Skills</h3>
                 <div class="skills-grid">
                     <div class="skill-group">
-                        <div class="skill-group-title work">Work</div>
+                        <div class="skill-group-title work" data-i18n="skillWork">Work</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot work"></span>Teamwork</div>
-                            <div class="skill-item"><span class="skill-dot work"></span>Communication</div>
-                            <div class="skill-item"><span class="skill-dot work"></span>Availability</div>
-                            <div class="skill-item"><span class="skill-dot work"></span>Flexibility</div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="teamwork">Teamwork</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="communication">Communication</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="availability">Availability</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="flexibility">Flexibility</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title behaviour">Behaviour</div>
+                        <div class="skill-group-title behaviour" data-i18n="behaviour">Behaviour</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot behaviour"></span>Script API</div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span>Behaviour Packs</div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span>Blocks & Items</div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span>Complex Entities</div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="scriptApi">Script API</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="behaviourPacks">Behaviour Packs</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="blocksItems">Blocks & Items</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="complexEntities">Complex Entities</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title resource">Resource</div>
+                        <div class="skill-group-title resource" data-i18n="resource">Resource</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot resource"></span>Entity Materials</div>
-                            <div class="skill-item"><span class="skill-dot resource"></span>Json-UI</div>
-                            <div class="skill-item"><span class="skill-dot resource"></span>RP Frameworks</div>
-                            <div class="skill-item"><span class="skill-dot resource"></span>Attachables</div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="entityMaterials">Entity Materials</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="jsonUi">Json-UI</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="rpFrameworks">RP Frameworks</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="attachables">Attachables</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title knowledge">Knowledge</div>
+                        <div class="skill-group-title knowledge" data-i18n="knowledge">Knowledge</div>
                         <div class="skill-list">
                             <div class="skill-item"><span class="skill-dot knowledge"></span>Blockbench</div>
                             <div class="skill-item"><span class="skill-dot knowledge"></span>Bridge</div>
@@ -1356,28 +1464,28 @@
     <section id="contact">
         <div class="contact-container">
             <div class="section-header">
-                <h2>Get in Touch</h2>
-                <p>Have a project in mind? Let's collaborate.</p>
+                <h2 data-i18n="contactTitle">Get in Touch</h2>
+                <p data-i18n="contactSubtitle">Professional contact information and project references.</p>
             </div>
             <div class="contact-grid">
                 <a href="mailto:iamjainlyn@gmail.com" class="contact-item">
                     <span class="contact-icon">✉️</span>
                     <div class="contact-info">
-                        <div class="contact-label">Email</div>
+                        <div class="contact-label" data-i18n="email">Email</div>
                         <div class="contact-value">iamjainlyn@gmail.com</div>
                     </div>
                 </a>
                 <a href="https://discord.com/users/gainser" class="contact-item" target="_blank">
                     <span class="contact-icon">💬</span>
                     <div class="contact-info">
-                        <div class="contact-label">Discord</div>
+                        <div class="contact-label" data-i18n="discord">Discord</div>
                         <div class="contact-value">gainser</div>
                     </div>
                 </a>
                 <a href="https://github.com/jainlyn" class="contact-item" target="_blank">
                     <span class="contact-icon">🐙</span>
                     <div class="contact-info">
-                        <div class="contact-label">GitHub</div>
+                        <div class="contact-label" data-i18n="github">GitHub</div>
                         <div class="contact-value">jainlyn</div>
                     </div>
                 </a>
@@ -1387,19 +1495,19 @@
 
     <footer>
         <div class="formal-notice">
-            <div class="formal-notice-title">Personal Information</div>
-            <p>This portfolio is made publicly available in support of my professional project and self-employed activity in Minecraft Bedrock development. It documents my professional experience, technical skills, commercial client work, and published projects, demonstrating my capacity to carry out the activity, the continuity of my work, and the economic viability of the project and work.</p>
+            <div class="formal-notice-title" data-i18n="personalInfo">Personal Information</div>
+            <p data-i18n="noticeText">This portfolio is made publicly available in support of my professional project and self-employed activity in Minecraft Bedrock development. It documents my professional experience, technical skills, commercial client work, and published projects, demonstrating my capacity to carry out the activity, the continuity of my professional activity, and the economic viability of my project.</p>
             <div class="formal-notice-grid">
                 <div class="formal-notice-item">
-                    <div class="formal-notice-label">Full Name</div>
+                    <div class="formal-notice-label" data-i18n="fullName">Full Name</div>
                     <div class="formal-notice-value">Benaroussi Abdellilah</div>
                 </div>
                 <div class="formal-notice-item">
-                    <div class="formal-notice-label">Phone</div>
+                    <div class="formal-notice-label" data-i18n="phone">Phone</div>
                     <div class="formal-notice-value">+40 746458794</div>
                 </div>
                 <div class="formal-notice-item">
-                    <div class="formal-notice-label">Address</div>
+                    <div class="formal-notice-label" data-i18n="address">Address</div>
                     <div class="formal-notice-value">Romania, Alba, Alba Iulia, Str Brandusei nr 8, 5102016</div>
                 </div>
             </div>
@@ -1407,6 +1515,226 @@
     </footer>
 
     <script>
+        const translations = {
+            en: {
+                skip: 'Skip to content',
+                toggleTheme: 'Toggle theme',
+                navWork: 'Work',
+                navUiGallery: 'UI Gallery',
+                navProfessionalActivity: 'Professional Activity',
+                navExperience: 'Experience',
+                navContact: 'Contact',
+                heroDescription: 'Self-employed Minecraft Bedrock developer specializing in Marketplace content, commercial client projects, and game systems development.',
+                viewWork: 'View my work',
+                workTitle: 'Work',
+                workSubtitle: 'Published Minecraft Bedrock Marketplace content',
+                filterAll: 'All',
+                tagAddon: 'Add-On',
+                tagLeadRole: 'Lead Role',
+                tagTeamWork: 'Team-Work',
+                tagWorld: 'World',
+                tagFree: 'FREE',
+                tagUpdate: 'Update',
+                tagFullStack: 'Full-Stack',
+                featured: 'Featured',
+                checkOut: 'Check out',
+                noResults: 'No projects found with that filter.',
+                unpublishedStatus: 'Separate Unpublished Pipeline',
+                unpublishedCount: '+6 Finished Unpublished Projects',
+                unpublishedText: 'These projects are complete but are not part of the published content shown above. Expected publication windows:',
+                uiGalleryTitle: 'UI Gallery',
+                uiGallerySubtitle: 'Interface work for Minecraft Bedrock experiences',
+                professionalActivityTitle: 'Professional Activity',
+                activeSince: 'Active since',
+                mainActivity: 'Main activity',
+                minecraftDevelopment: 'Minecraft Bedrock development',
+                activityType: 'Type',
+                contractorType: 'Self-employed / independent contractor',
+                clients: 'Clients',
+                clientCountries: 'Germany, UAE, France, Austria, etc.',
+                experienceTitle: 'Experience',
+                experienceSubtitle: 'Teams and skills I\'ve developed',
+                teams: 'Teams',
+                skills: 'Skills',
+                skillWork: 'Work',
+                teamwork: 'Teamwork',
+                communication: 'Communication',
+                availability: 'Availability',
+                flexibility: 'Flexibility',
+                behaviour: 'Behaviour',
+                scriptApi: 'Script API',
+                behaviourPacks: 'Behaviour Packs',
+                blocksItems: 'Blocks & Items',
+                complexEntities: 'Complex Entities',
+                resource: 'Resource',
+                entityMaterials: 'Entity Materials',
+                jsonUi: 'Json-UI',
+                rpFrameworks: 'RP Frameworks',
+                attachables: 'Attachables',
+                knowledge: 'Knowledge',
+                contactTitle: 'Get in Touch',
+                contactSubtitle: 'Professional contact information and project references.',
+                email: 'Email',
+                discord: 'Discord',
+                github: 'GitHub',
+                personalInfo: 'Personal Information',
+                noticeText: 'This portfolio is made publicly available in support of my professional project and self-employed activity in Minecraft Bedrock development. It documents my professional experience, technical skills, commercial client work, and published projects, demonstrating my capacity to carry out the activity, the continuity of my professional activity, and the economic viability of my project.',
+                fullName: 'Full Name',
+                phone: 'Phone',
+                address: 'Address'
+            },
+            de: {
+                skip: 'Zum Inhalt springen',
+                toggleTheme: 'Design umschalten',
+                navWork: 'Arbeiten',
+                navUiGallery: 'UI-Galerie',
+                navProfessionalActivity: 'Berufliche Tätigkeit',
+                navExperience: 'Erfahrung',
+                navContact: 'Kontakt',
+                heroDescription: 'Selbstständiger Minecraft Bedrock-Entwickler mit Schwerpunkt auf Marketplace-Inhalten, kommerziellen Kundenprojekten und Entwicklung von Spielsystemen.',
+                viewWork: 'Meine Arbeiten ansehen',
+                workTitle: 'Arbeiten',
+                workSubtitle: 'Veröffentlichte Minecraft Bedrock Marketplace-Inhalte',
+                filterAll: 'Alle',
+                tagAddon: 'Add-On',
+                tagLeadRole: 'Leitende Rolle',
+                tagTeamWork: 'Teamarbeit',
+                tagWorld: 'World',
+                tagFree: 'KOSTENLOS',
+                tagUpdate: 'Update',
+                tagFullStack: 'Full-Stack',
+                featured: 'Empfohlen',
+                checkOut: 'Ansehen',
+                noResults: 'Keine Projekte mit diesem Filter gefunden.',
+                unpublishedStatus: 'Separate unveröffentlichte Pipeline',
+                unpublishedCount: '+6 abgeschlossene unveröffentlichte Projekte',
+                unpublishedText: 'Diese Projekte sind abgeschlossen, gehören aber nicht zu den oben gezeigten veröffentlichten Inhalten. Erwartete Veröffentlichungszeiträume:',
+                uiGalleryTitle: 'UI-Galerie',
+                uiGallerySubtitle: 'Interface-Arbeiten für Minecraft Bedrock-Erlebnisse',
+                professionalActivityTitle: 'Berufliche Tätigkeit',
+                activeSince: 'Aktiv seit',
+                mainActivity: 'Haupttätigkeit',
+                minecraftDevelopment: 'Minecraft Bedrock-Entwicklung',
+                activityType: 'Art',
+                contractorType: 'Selbstständig / unabhängiger Auftragnehmer',
+                clients: 'Kunden',
+                clientCountries: 'Deutschland, VAE, Frankreich, Österreich usw.',
+                experienceTitle: 'Erfahrung',
+                experienceSubtitle: 'Teams und Fähigkeiten, die ich entwickelt habe',
+                teams: 'Teams',
+                skills: 'Fähigkeiten',
+                skillWork: 'Arbeit',
+                teamwork: 'Teamarbeit',
+                communication: 'Kommunikation',
+                availability: 'Verfügbarkeit',
+                flexibility: 'Flexibilität',
+                behaviour: 'Behaviour',
+                scriptApi: 'Script API',
+                behaviourPacks: 'Behaviour Packs',
+                blocksItems: 'Blocks & Items',
+                complexEntities: 'Complex Entities',
+                resource: 'Resource',
+                entityMaterials: 'Entity Materials',
+                jsonUi: 'Json-UI',
+                rpFrameworks: 'RP Frameworks',
+                attachables: 'Attachables',
+                knowledge: 'Kenntnisse',
+                contactTitle: 'Kontakt aufnehmen',
+                contactSubtitle: 'Berufliche Kontaktinformationen und Projektreferenzen.',
+                email: 'E-Mail',
+                discord: 'Discord',
+                github: 'GitHub',
+                personalInfo: 'Persönliche Informationen',
+                noticeText: 'Dieses Portfolio wird öffentlich zur Unterstützung meines beruflichen Projekts und meiner selbstständigen Tätigkeit in der Minecraft Bedrock-Entwicklung bereitgestellt. Es dokumentiert meine berufliche Erfahrung, technischen Fähigkeiten, kommerzielle Kundenarbeit und veröffentlichten Projekte und zeigt meine Fähigkeit zur Ausübung dieser Tätigkeit, die Kontinuität meiner beruflichen Tätigkeit sowie die wirtschaftliche Tragfähigkeit meines Projekts.',
+                fullName: 'Vollständiger Name',
+                phone: 'Telefon',
+                address: 'Adresse'
+            },
+            fr: {
+                skip: 'Aller au contenu',
+                toggleTheme: 'Changer de thème',
+                navWork: 'Travail',
+                navUiGallery: 'Galerie UI',
+                navProfessionalActivity: 'Activité professionnelle',
+                navExperience: 'Expérience',
+                navContact: 'Contact',
+                heroDescription: 'Développeur indépendant Minecraft Bedrock spécialisé dans le contenu Marketplace, les projets commerciaux clients et le développement de systèmes de jeu.',
+                viewWork: 'Voir mon travail',
+                workTitle: 'Travail',
+                workSubtitle: 'Contenu Minecraft Bedrock Marketplace publié',
+                filterAll: 'Tous',
+                tagAddon: 'Add-On',
+                tagLeadRole: 'Rôle principal',
+                tagTeamWork: 'Travail d\'équipe',
+                tagWorld: 'Monde',
+                tagFree: 'GRATUIT',
+                tagUpdate: 'Mise à jour',
+                tagFullStack: 'Full-Stack',
+                featured: 'Mis en avant',
+                checkOut: 'Découvrir',
+                noResults: 'Aucun projet trouvé avec ce filtre.',
+                unpublishedStatus: 'Pipeline non publié séparé',
+                unpublishedCount: '+6 projets terminés non publiés',
+                unpublishedText: 'Ces projets sont terminés mais ne font pas partie du contenu publié affiché ci-dessus. Fenêtres de publication prévues :',
+                uiGalleryTitle: 'Galerie UI',
+                uiGallerySubtitle: 'Travail d\'interface pour des expériences Minecraft Bedrock',
+                professionalActivityTitle: 'Activité professionnelle',
+                activeSince: 'Actif depuis',
+                mainActivity: 'Activité principale',
+                minecraftDevelopment: 'Développement Minecraft Bedrock',
+                activityType: 'Type',
+                contractorType: 'Auto-entrepreneur / prestataire indépendant',
+                clients: 'Clients',
+                clientCountries: 'Allemagne, Émirats arabes unis, France, Autriche, etc.',
+                experienceTitle: 'Expérience',
+                experienceSubtitle: 'Équipes et compétences développées',
+                teams: 'Équipes',
+                skills: 'Compétences',
+                skillWork: 'Travail',
+                teamwork: 'Travail d\'équipe',
+                communication: 'Communication',
+                availability: 'Disponibilité',
+                flexibility: 'Flexibilité',
+                behaviour: 'Comportement',
+                scriptApi: 'Script API',
+                behaviourPacks: 'Packs de comportements',
+                blocksItems: 'Blocs et objets',
+                complexEntities: 'Entités complexes',
+                resource: 'Ressource',
+                entityMaterials: 'Matériaux d\'entités',
+                jsonUi: 'Json-UI',
+                rpFrameworks: 'Frameworks RP',
+                attachables: 'Attachables',
+                knowledge: 'Connaissances',
+                contactTitle: 'Prendre contact',
+                contactSubtitle: 'Coordonnées professionnelles et références de projets.',
+                email: 'Email',
+                discord: 'Discord',
+                github: 'GitHub',
+                personalInfo: 'Informations personnelles',
+                noticeText: 'Ce portfolio est rendu public à l\'appui de mon projet professionnel et de mon activité indépendante dans le développement Minecraft Bedrock. Il documente mon expérience professionnelle, mes compétences techniques, mes travaux commerciaux pour des clients et mes projets publiés, démontrant ma capacité à exercer cette activité, la continuité de mon activité professionnelle et la viabilité économique de mon projet.',
+                fullName: 'Nom complet',
+                phone: 'Téléphone',
+                address: 'Adresse'
+            }
+        };
+
+        function setLanguage(language) {
+            document.documentElement.lang = language;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const translatedText = translations[language][element.dataset.i18n];
+                if (translatedText) element.textContent = translatedText;
+            });
+            document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+                const translatedText = translations[language][element.dataset.i18nAria];
+                if (translatedText) element.setAttribute('aria-label', translatedText);
+            });
+            document.querySelectorAll('.language-btn').forEach(button => {
+                button.classList.toggle('active', button.dataset.language === language);
+            });
+            localStorage.setItem('language', language);
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
@@ -1420,6 +1748,8 @@
                 (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', savedTheme);
         })();
+
+        setLanguage(localStorage.getItem('language') || 'en');
 
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
