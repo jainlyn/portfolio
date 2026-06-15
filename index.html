@@ -370,6 +370,37 @@
             box-shadow: var(--shadow-elevated);
         }
 
+        .future-projects {
+            grid-column: 1 / -1;
+            padding: 28px;
+            background: linear-gradient(135deg, rgba(0, 113, 227, 0.12), rgba(175, 82, 222, 0.12), var(--bg-card));
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glass);
+            text-align: center;
+        }
+
+        .future-projects-count {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .future-projects-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .future-projects-dates {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
         .project.featured {
             grid-column: 1 / -1;
             display: grid;
@@ -579,6 +610,8 @@
         .team-badge.crimson:hover { background: #e85555; color: #fff; }
         .team-badge.msk:hover { background: #8b1a1a; color: #fff; }
         .team-badge.rareloot:hover { background: #1a3a6b; color: #fff; }
+        .team-badge.eternal:hover { background: linear-gradient(135deg, #ff9500, #af52de); color: #fff; }
+        .team-badge.flowscape:hover { background: #d8f4ff; color: #1a1a1a; }
 
         .ui-gallery-grid {
             columns: 2 420px;
@@ -834,6 +867,14 @@
 
             .project.featured .project-image {
                 aspect-ratio: 16 / 9;
+            }
+
+            .future-projects {
+                padding: 24px 18px;
+            }
+
+            .future-projects-count {
+                font-size: 34px;
             }
 
             .skills-grid {
@@ -1133,6 +1174,16 @@
                     </a>
                 </div>
             </div>
+
+            <div class="future-projects">
+                <div class="future-projects-count">+6 Projects</div>
+                <div class="future-projects-text">Finished soon to be published in:</div>
+                <div class="future-projects-dates">
+                    <span class="tag year">2026 Q3</span>
+                    <span class="tag year">2026 Q4</span>
+                    <span class="tag year">2027 Q1</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1183,6 +1234,8 @@
                     <span class="team-badge crimson">Crimson Creative</span>
                     <span class="team-badge msk">MSK Creations</span>
                     <span class="team-badge rareloot">RareLoot</span>
+                    <span class="team-badge eternal">Eternal Creations</span>
+                    <span class="team-badge flowscape">Flowscape</span>
                 </div>
             </div>
             <div class="skills-section">
