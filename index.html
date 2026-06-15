@@ -373,15 +373,14 @@
         .future-projects {
             grid-column: 1 / -1;
             padding: 28px;
-            background: linear-gradient(135deg, rgba(0, 113, 227, 0.12), rgba(175, 82, 222, 0.12), var(--bg-card));
-            border: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            border: 1.5px dashed rgba(0, 113, 227, 0.45);
             border-radius: 20px;
             box-shadow: var(--shadow-glass);
-            text-align: center;
         }
 
         .future-projects-count {
-            font-size: 44px;
+            font-size: 32px;
             font-weight: 700;
             letter-spacing: -0.025em;
             color: var(--text-primary);
@@ -397,8 +396,20 @@
         .future-projects-dates {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             gap: 8px;
+        }
+
+        .future-projects-status {
+            display: inline-block;
+            padding: 5px 12px;
+            margin-bottom: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--accent);
+            background: rgba(0, 113, 227, 0.1);
+            border-radius: 9999px;
         }
 
         .project.featured {
@@ -803,6 +814,54 @@
             border-top: 0.5px solid var(--border-glass);
         }
 
+        .formal-notice {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            box-shadow: var(--shadow-glass);
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .formal-notice-title {
+            color: var(--text-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .formal-notice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .formal-notice-item {
+            padding: 14px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+
+        .formal-notice-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .formal-notice-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             nav {
@@ -874,7 +933,15 @@
             }
 
             .future-projects-count {
-                font-size: 34px;
+                font-size: 28px;
+            }
+
+            .formal-notice {
+                padding: 20px;
+            }
+
+            .formal-notice-grid {
+                grid-template-columns: 1fr;
             }
 
             .skills-grid {
@@ -955,7 +1022,7 @@
     <section id="work">
         <div class="section-header">
             <h2>Work</h2>
-            <p>Minecraft Bedrock add-ons and marketplace content</p>
+            <p>Published Minecraft Bedrock Marketplace content</p>
         </div>
 
         <div class="filter-container">
@@ -1176,8 +1243,9 @@
             </div>
 
             <div class="future-projects">
-                <div class="future-projects-count">+6 Projects</div>
-                <div class="future-projects-text">Finished soon to be published in:</div>
+                <div class="future-projects-status">Separate Unpublished Pipeline</div>
+                <div class="future-projects-count">+6 Finished Unpublished Projects</div>
+                <div class="future-projects-text">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
                 <div class="future-projects-dates">
                     <span class="tag year">2026 Q3</span>
                     <span class="tag year">2026 Q4</span>
@@ -1318,7 +1386,24 @@
     </section>
 
     <footer>
-        <p>© 2026 Jainlyn. Built with passion.</p>
+        <div class="formal-notice">
+            <div class="formal-notice-title">Personal Information</div>
+            <p>This portfolio is made publicly available in support of my professional project and self-employed activity in Minecraft Bedrock development. It documents my professional experience, technical skills, commercial client work, and published projects, demonstrating my capacity to carry out the activity, the continuity of my work, and the economic viability of the project and work.</p>
+            <div class="formal-notice-grid">
+                <div class="formal-notice-item">
+                    <div class="formal-notice-label">Full Name</div>
+                    <div class="formal-notice-value">Benaroussi Abdellilah</div>
+                </div>
+                <div class="formal-notice-item">
+                    <div class="formal-notice-label">Phone</div>
+                    <div class="formal-notice-value">+40 746458794</div>
+                </div>
+                <div class="formal-notice-item">
+                    <div class="formal-notice-label">Address</div>
+                    <div class="formal-notice-value">Romania, Alba, Alba Iulia, Str Brandusei nr 8, 5102016</div>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
