@@ -99,17 +99,16 @@
         /* Navigation */
         nav {
             position: fixed;
-            top: 20px;
+            top: 16px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--bg-glass-strong);
             backdrop-filter: saturate(180%) blur(var(--blur-amount));
             -webkit-backdrop-filter: saturate(180%) blur(var(--blur-amount));
-            border: 1px solid var(--border-glass-light);
+            border: 0.5px solid var(--border-glass-light);
             z-index: 1000;
-            width: min(1080px, calc(100% - 40px));
-            padding: 8px;
-            border-radius: 18px;
+            padding: 6px 8px;
+            border-radius: 9999px;
             box-shadow: var(--shadow-glass);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -119,16 +118,14 @@
         }
 
         .nav-container {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
+            display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 8px;
         }
 
         nav ul {
             display: flex;
-            justify-content: center;
-            gap: 2px;
+            gap: 4px;
             list-style: none;
         }
 
@@ -136,31 +133,29 @@
             text-decoration: none;
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 13px;
-            padding: 9px 13px;
-            border-radius: 10px;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 9999px;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             display: block;
         }
 
         nav a:hover {
             color: var(--text-primary);
-            background: var(--border-subtle);
         }
 
         nav a.active {
-            background: rgba(0, 113, 227, 0.12);
-            color: var(--accent);
+            background: var(--text-primary);
+            color: var(--bg-primary);
         }
 
         .nav-brand {
             text-decoration: none;
             color: var(--text-primary);
-            font-weight: 700;
-            font-size: 16px;
-            letter-spacing: -0.02em;
-            padding: 8px 14px;
-            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            margin-right: 4px;
         }
 
         .skip-link {
@@ -196,6 +191,7 @@
             font-size: 16px;
             color: var(--text-secondary);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 4px;
         }
 
         .theme-toggle:hover {
@@ -212,14 +208,15 @@
             display: flex;
             align-items: center;
             gap: 2px;
-            padding-left: 8px;
+            margin-left: 4px;
+            padding-left: 4px;
             border-left: 1px solid var(--border-subtle);
         }
 
         .language-btn {
             background: transparent;
             border: none;
-            border-radius: 8px;
+            border-radius: 9999px;
             color: var(--text-secondary);
             cursor: pointer;
             font-family: inherit;
@@ -873,37 +870,21 @@
         /* Responsive */
         @media (max-width: 768px) {
             nav {
-                top: 10px;
-                width: calc(100% - 20px);
-                padding: 6px;
-                border-radius: 14px;
-            }
-
-            .nav-container {
-                display: flex;
-                gap: 6px;
-                overflow-x: auto;
-                scrollbar-width: none;
-            }
-
-            .nav-container::-webkit-scrollbar {
-                display: none;
+                top: 12px;
+                padding: 6px 8px;
             }
 
             .nav-brand {
-                flex: 0 0 auto;
-                font-size: 14px;
-                padding: 7px 9px;
+                display: none;
             }
 
             nav ul {
-                flex: 0 0 auto;
                 gap: 2px;
             }
 
             nav a {
                 font-size: 12px;
-                padding: 7px 9px;
+                padding: 6px 8px;
             }
 
             .theme-toggle {
@@ -912,8 +893,9 @@
             }
 
             .language-selector {
-                flex: 0 0 auto;
-                padding-left: 6px;
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
             }
 
             .language-btn {
