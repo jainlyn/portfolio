@@ -655,6 +655,8 @@
         .team-badge.rareloot:hover { background: #1a3a6b; color: #fff; }
         .team-badge.eternal:hover { background: linear-gradient(135deg, #ff9500, #af52de); color: #fff; }
         .team-badge.flowscape:hover { background: #d8f4ff; color: #1a1a1a; }
+        .team-badge.wstudio:hover { background: linear-gradient(135deg, white, gray); color: #1a1a1a; }
+        .team-badge.compycraft:hover { background: linear-gradient(135deg, green, yellow); color: #1a1a1a; }
 
         .ui-gallery-grid {
             columns: 2 420px;
@@ -1078,6 +1080,25 @@
 
             <div class="project">
                 <div class="project-image">
+                    <img src="resources/BiomesExpanded.jpg" alt="Biomes Expanded">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag year">2026</span>
+                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
+                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
+                    </div>
+                    <h3>Biomes Expanded</h3>
+                    <p>Add 20 NEW BIOMES to ANY WORLD! This Add-On overhauls the Overworld with plenty of new things to explore.</p>
+                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/biomes-expanded/443b7d67-49cb-4255-ae6a-d83c80d8cccc" class="project-link" target="_blank">
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-image">
                     <img src="resources/blockpack.png" alt="BlockPack Add-on">
                 </div>
                 <div class="project-info">
@@ -1163,25 +1184,6 @@
                     <h3>Mythical Conquest Add-On</h3>
                     <p>Embark on a medieval adventure filled with towering fantasy creatures! Test your strength in this upgraded survival experience.</p>
                     <a href="https://www.minecraft.net/en-us/marketplace/pdp/pathway-studios/mythical-conquest/e6e88bdf-4e9d-4860-91e2-b9cfd51a66f0" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="project" style="display: none;">
-                <div class="project-image">
-                    <img src="resources/biomesExpanded.png" alt="Biomes Expanded Add-On">
-                </div>
-                <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag year">2025</span>
-                    </div>
-                    <h3>Biomes Expanded Add-On</h3>
-                    <p>Coming soon...</p>
-                    <a href="#" class="project-link" target="_blank">
                         <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
                     </a>
                 </div>
@@ -1282,12 +1284,12 @@
 
             <div class="future-projects">
                 <div class="future-projects-status" data-i18n="unpublishedStatus">Separate Unpublished Pipeline</div>
-                <div class="future-projects-count" data-i18n="unpublishedCount">+5 Finished Unpublished Projects</div>
+                <div class="future-projects-count" data-i18n="unpublishedCount">+9 Finished Unpublished Projects</div>
                 <div class="future-projects-text" data-i18n="unpublishedText">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
                 <div class="future-projects-dates">
-                    <span class="tag year">2026 Q3</span>
                     <span class="tag year">2026 Q4</span>
                     <span class="tag year">2027 Q1</span>
+                    <span class="tag year">2027 Q2</span>
                 </div>
             </div>
         </div>
@@ -1342,6 +1344,8 @@
                     <span class="team-badge rareloot">RareLoot</span>
                     <span class="team-badge eternal">Eternal Creations</span>
                     <span class="team-badge flowscape">Flowscape</span>
+                    <span class="team-badge wstudio">W Studio</span>
+                    <span class="team-badge compycraft">CompyCraft</span>
                 </div>
             </div>
             <div class="skills-section">
@@ -1410,7 +1414,7 @@
             </div>
             <div class="professional-activity-item">
                 <div class="professional-activity-label" data-i18n="clients">Clients</div>
-                <div class="professional-activity-value" data-i18n="clientCountries">Germany, UAE, France, Austria, etc.</div>
+                <div class="professional-activity-value" data-i18n="clientCountries">Germany, UAE, France, Austria, UK, etc.</div>
             </div>
         </div>
     </section>
@@ -1473,7 +1477,7 @@
                 checkOut: 'Check out',
                 noResults: 'No projects found with that filter.',
                 unpublishedStatus: 'Separate Unpublished Pipeline',
-                unpublishedCount: '+5 Finished Unpublished Projects',
+                unpublishedCount: '+9 Finished Unpublished Projects',
                 unpublishedText: 'These projects are complete but are not part of the published content shown above. Expected publication windows:',
                 uiGalleryTitle: 'UI Gallery',
                 uiGallerySubtitle: 'Interface work for Minecraft Bedrock experiences',
@@ -1484,7 +1488,7 @@
                 activityType: 'Type',
                 contractorType: 'Self-employed / independent contractor',
                 clients: 'Clients',
-                clientCountries: 'Germany, UAE, France, Austria, etc.',
+                clientCountries: 'Germany, UAE, France, Austria, UK, etc.',
                 experienceTitle: 'Experience',
                 experienceSubtitle: 'Teams and skills I\'ve developed',
                 teams: 'Teams',
@@ -1535,7 +1539,7 @@
                 checkOut: 'Ansehen',
                 noResults: 'Keine Projekte mit diesem Filter gefunden.',
                 unpublishedStatus: 'Separate unveröffentlichte Pipeline',
-                unpublishedCount: '+5 abgeschlossene unveröffentlichte Projekte',
+                unpublishedCount: '+9 abgeschlossene unveröffentlichte Projekte',
                 unpublishedText: 'Diese Projekte sind abgeschlossen, gehören aber nicht zu den oben gezeigten veröffentlichten Inhalten. Erwartete Veröffentlichungszeiträume:',
                 uiGalleryTitle: 'UI-Galerie',
                 uiGallerySubtitle: 'Interface-Arbeiten für Minecraft Bedrock-Erlebnisse',
@@ -1546,7 +1550,7 @@
                 activityType: 'Art',
                 contractorType: 'Selbstständig / unabhängiger Auftragnehmer',
                 clients: 'Kunden',
-                clientCountries: 'Deutschland, VAE, Frankreich, Österreich usw.',
+                clientCountries: 'Deutschland, VAE, Frankreich, Österreich, UK usw.',
                 experienceTitle: 'Erfahrung',
                 experienceSubtitle: 'Teams und Fähigkeiten, die ich entwickelt habe',
                 teams: 'Teams',
@@ -1597,7 +1601,7 @@
                 checkOut: 'Découvrir',
                 noResults: 'Aucun projet trouvé avec ce filtre.',
                 unpublishedStatus: 'Pipeline non publié séparé',
-                unpublishedCount: '+5 projets terminés non publiés',
+                unpublishedCount: '+9 projets terminés non publiés',
                 unpublishedText: 'Ces projets sont terminés mais ne font pas partie du contenu publié affiché ci-dessus. Fenêtres de publication prévues :',
                 uiGalleryTitle: 'Galerie UI',
                 uiGallerySubtitle: 'Travail d\'interface pour des expériences Minecraft Bedrock',
@@ -1608,7 +1612,7 @@
                 activityType: 'Type',
                 contractorType: 'Auto-entrepreneur / prestataire indépendant',
                 clients: 'Clients',
-                clientCountries: 'Allemagne, Émirats arabes unis, France, Autriche, etc.',
+                clientCountries: 'Allemagne, Émirats arabes unis, France, Autriche, UK, etc.',
                 experienceTitle: 'Expérience',
                 experienceSubtitle: 'Équipes et compétences développées',
                 teams: 'Équipes',
