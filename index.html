@@ -655,8 +655,6 @@
         .team-badge.rareloot:hover { background: #1a3a6b; color: #fff; }
         .team-badge.eternal:hover { background: linear-gradient(135deg, #ff9500, #af52de); color: #fff; }
         .team-badge.flowscape:hover { background: #d8f4ff; color: #1a1a1a; }
-        .team-badge.wstudio:hover { background: linear-gradient(135deg, white, gray); color: #1a1a1a; }
-        .team-badge.compycraft:hover { background: linear-gradient(135deg, green, yellow); color: #1a1a1a; }
 
         .ui-gallery-grid {
             columns: 2 420px;
@@ -1061,6 +1059,25 @@
             <div class="project featured">
                 <div class="project-image">
                     <span class="featured-badge" data-i18n="featured">Featured</span>
+                    <img src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
+                        <span class="tag collaboration">TEAM WORK</span>
+                        <span class="tag year">2026</span>
+                        <span class="tag update" data-i18n="tagUpdate">UPDATE</span>
+                    </div>
+                    <h3>Better Structures</h3>
+                    <p>Better Structures Add-On packs your OWN WORLD with 10+ epic structures! Hunt through fresh dungeons and upgraded vanilla sites for fierce fights and hidden treasure.</p>
+                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/blocklab-studios/better-structures-2.0-add--on/5e6039aa-a4a1-4508-880c-564129ce04bc" class="project-link" target="_blank">
+                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-image">
                     <img src="resources/bossesRiseThumbnail.jpg" alt="Bosses Rise">
                 </div>
                 <div class="project-info">
@@ -1344,8 +1361,6 @@
                     <span class="team-badge rareloot">RareLoot</span>
                     <span class="team-badge eternal">Eternal Creations</span>
                     <span class="team-badge flowscape">Flowscape</span>
-                    <span class="team-badge wstudio">W Studio</span>
-                    <span class="team-badge compycraft">CompyCraft</span>
                 </div>
             </div>
             <div class="skills-section">
@@ -1696,6 +1711,16 @@
         const filterBtns = document.querySelectorAll('.filter-btn');
         const projects = document.querySelectorAll('.project');
         const noResults = document.querySelector('.no-results');
+        let featuredAddon = null;
+
+        projects.forEach(project => {
+            if (project.classList.contains('featured') && project.querySelector('.tag.addon')) {
+                if (featuredAddon) {
+                    project.classList.remove('featured');
+                    project.querySelector('.featured-badge')?.remove();
+                } else featuredAddon = project;
+            }
+        });
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
