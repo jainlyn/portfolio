@@ -9,1302 +9,596 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #f5f5f7;
-            --bg-gradient: linear-gradient(180deg, #f5f5f7 0%, #e8e8ed 100%);
-            --bg-glass: rgba(255, 255, 255, 0.7);
-            --bg-glass-hover: rgba(255, 255, 255, 0.85);
-            --bg-glass-strong: rgba(255, 255, 255, 0.9);
-            --bg-card: rgba(255, 255, 255, 0.95);
-            --text-primary: #1d1d1f;
-            --text-secondary: #6e6e73;
-            --border-glass: rgba(0, 0, 0, 0.04);
-            --border-glass-light: rgba(255, 255, 255, 0.7);
-            --border-subtle: rgba(0, 0, 0, 0.06);
-            --shadow-glass:
-                0 0 0 0.5px rgba(0, 0, 0, 0.03),
-                0 2px 4px rgba(0, 0, 0, 0.02),
-                0 12px 28px rgba(0, 0, 0, 0.06);
-            --shadow-hover:
-                0 0 0 0.5px rgba(0, 0, 0, 0.04),
-                0 4px 8px rgba(0, 0, 0, 0.04),
-                0 20px 40px rgba(0, 0, 0, 0.08);
-            --shadow-elevated:
-                0 0 0 0.5px rgba(0, 0, 0, 0.05),
-                0 8px 16px rgba(0, 0, 0, 0.06),
-                0 32px 64px rgba(0, 0, 0, 0.1);
-            --accent: #0071e3;
-            --accent-secondary: #147ce5;
-            --section-separator-bright: rgba(255, 255, 255, 0.95);
-            --section-separator-dark: rgba(0, 0, 0, 0.12);
-            --blur-amount: 24px;
+            color-scheme: dark;
+            --bg-primary: #101b1a;
+            --text-primary: #eef2e6;
+            --text-secondary: #b4c1b6;
+            --accent: #c0dc95;
+            --accent-soft: rgba(168, 205, 121, 0.12);
+            --glass: rgba(31, 48, 44, 0.58);
+            --glass-hover: rgba(45, 64, 54, 0.7);
+            --glass-border: rgba(226, 244, 205, 0.2);
+            --border-subtle: rgba(218, 236, 208, 0.13);
+            --glass-shadow: inset 0 1px 0 rgba(246, 255, 233, 0.09), 0 16px 48px rgba(0, 0, 0, 0.16);
         }
-
-        [data-theme="dark"] {
-            --bg-primary: #0a0a0a;
-            --bg-gradient: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
-            --bg-glass: rgba(38, 38, 40, 0.65);
-            --bg-glass-hover: rgba(58, 58, 60, 0.75);
-            --bg-glass-strong: rgba(48, 48, 50, 0.85);
-            --bg-card: rgba(28, 28, 30, 0.95);
-            --text-primary: #f5f5f7;
-            --text-secondary: #98989d;
-            --border-glass: rgba(255, 255, 255, 0.06);
-            --border-glass-light: rgba(255, 255, 255, 0.1);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --shadow-glass:
-                0 0 0 0.5px rgba(255, 255, 255, 0.05),
-                0 2px 4px rgba(0, 0, 0, 0.1),
-                0 12px 28px rgba(0, 0, 0, 0.25);
-            --shadow-hover:
-                0 0 0 0.5px rgba(255, 255, 255, 0.08),
-                0 4px 8px rgba(0, 0, 0, 0.15),
-                0 20px 40px rgba(0, 0, 0, 0.3);
-            --shadow-elevated:
-                0 0 0 0.5px rgba(255, 255, 255, 0.1),
-                0 8px 16px rgba(0, 0, 0, 0.2),
-                0 32px 64px rgba(0, 0, 0, 0.4);
-            --section-separator-bright: rgba(255, 255, 255, 0.16);
-            --section-separator-dark: rgba(0, 0, 0, 0.75);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 140px; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            background: var(--bg-gradient);
+            position: relative;
+            isolation: isolate;
+            min-width: 320px;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.5;
-            font-weight: 400;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 100vh;
-            -webkit-user-select: none;
-            user-select: none;
+            transition: background-color 0.3s, color 0.3s;
         }
-
-        #contact {
-            -webkit-user-select: text;
-            user-select: text;
+        .page-background { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--bg-primary); }
+        .page-background-layer { position: absolute; inset: -80px; background-position: center; background-size: cover; filter: blur(48px); opacity: 0; transition: opacity 0.9s ease-in-out; }
+        .page-background-layer.active { opacity: 1; }
+        .page-background::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 18, 18, 0.72), rgba(10, 18, 18, 0.82)); }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        button { font: inherit; }
+        a { color: inherit; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        .skip-link { position: fixed; top: -100px; left: 24px; z-index: 1001; padding: 12px 20px; border-radius: 16px; background: var(--text-primary); color: var(--bg-primary); text-decoration: none; }
+        .skip-link:focus { top: 24px; }
+        nav { position: fixed; top: 24px; left: 32px; right: 32px; max-width: 1392px; margin: auto; z-index: 1000; color: #f4f7ec; }
+        .nav-container { display: grid; grid-template-columns: minmax(140px, 1fr) auto; align-items: center; gap: 12px; }
+        .nav-brand { justify-self: start; font-size: 24px; font-weight: 700; letter-spacing: -1px; text-decoration: none; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 20px; }
+        .nav-brand, nav ul {
+            background: linear-gradient(140deg, rgba(42, 58, 43, 0.72), rgba(14, 30, 27, 0.76));
+            border: 1px solid rgba(237, 249, 224, 0.3);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 28px rgba(0, 0, 0, 0.16);
+            -webkit-backdrop-filter: blur(24px) saturate(145%);
+            backdrop-filter: blur(24px) saturate(145%);
         }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-glass-strong);
-            backdrop-filter: saturate(180%) blur(var(--blur-amount));
-            -webkit-backdrop-filter: saturate(180%) blur(var(--blur-amount));
-            border: 0.5px solid var(--border-glass-light);
-            z-index: 1000;
-            padding: 6px 8px;
-            border-radius: 9999px;
-            box-shadow: var(--shadow-glass);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        nav:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 4px;
-            list-style: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            display: block;
-        }
-
-        nav a:hover {
-            color: var(--text-primary);
-        }
-
-        nav a.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-
-        .nav-brand {
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 15px;
-            padding: 8px 16px;
-            margin-right: 4px;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            padding: 12px 24px;
-            border-radius: 9999px;
-            font-weight: 500;
-            font-size: 14px;
-            text-decoration: none;
-            z-index: 1001;
-            transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .skip-link:focus {
-            top: 16px;
-        }
-
-        .theme-toggle {
-            background: transparent;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: var(--text-secondary);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-left: 4px;
-        }
-
-        .theme-toggle:hover {
-            background: var(--border-subtle);
-            color: var(--text-primary);
-        }
-
-        .theme-toggle .sun { display: block; }
-        .theme-toggle .moon { display: none; }
-        [data-theme="dark"] .theme-toggle .sun { display: none; }
-        [data-theme="dark"] .theme-toggle .moon { display: block; }
-
-        .language-selector {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-            margin-left: 4px;
-            padding-left: 4px;
-            border-left: 1px solid var(--border-subtle);
-        }
-
-        .language-btn {
-            background: transparent;
-            border: none;
-            border-radius: 9999px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 7px 8px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .language-btn:hover {
-            background: var(--border-subtle);
-            color: var(--text-primary);
-        }
-
-        .language-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-
-        /* Sections */
-        section {
-            position: relative;
-            padding: 100px 24px 80px;
-            max-width: 1120px;
-            margin: 0 auto;
-        }
-
-        section:not(.hero)::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 24px;
-            right: 24px;
-            height: 2px;
-            background: linear-gradient(180deg, var(--section-separator-bright) 0 50%, var(--section-separator-dark) 50% 100%);
-            border-radius: 9999px;
-        }
-
-        /* Hero Section */
+        nav ul { display: flex; gap: 2px; padding: 5px; border-radius: 24px; list-style: none; }
+        nav ul li { flex-shrink: 0; }
+        nav ul a { display: block; padding: 10px 12px; border-radius: 18px; font-size: 12px; font-weight: 500; white-space: nowrap; text-decoration: none; transition: background-color 0.2s, color 0.2s; }
+        nav ul a:hover { background: rgba(244, 253, 224, 0.12); }
+        nav ul a.active { background: rgba(237, 247, 218, 0.9); color: #1b3225; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12); }
+        nav a:focus-visible, nav button:focus-visible { outline-color: #e5f5b9; }
+        section { position: relative; max-width: 1320px; margin: 0 auto; padding: 96px 32px; }
+        section:not(.hero) + section::before { content: ""; position: absolute; top: 0; left: 32px; right: 32px; height: 1px; background: var(--border-subtle); }
         .hero {
-            min-height: 50vh;
+            max-width: none;
+            min-height: 700px;
+            min-height: max(700px, 100svh);
+            padding: 150px max(40px, calc((100vw - 1320px) / 2 + 32px)) 64px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 100px;
-            padding-bottom: 40px;
+            align-items: flex-end;
+            overflow: hidden;
+            isolation: isolate;
+            color: #f3f6e9;
+            background: #172424;
         }
-
+        .hero-scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% center; z-index: -3; }
+        .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(5, 14, 19, 0.33), transparent 28%, transparent 58%, rgba(6, 18, 16, 0.53)), linear-gradient(90deg, rgba(9, 21, 19, 0.18), transparent 65%); }
+        .hero-atmosphere { position: absolute; bottom: 0; left: 0; right: 0; height: 170px; z-index: -1; pointer-events: none; background: rgba(13, 29, 25, 0.16); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); -webkit-mask-image: linear-gradient(transparent, #000); mask-image: linear-gradient(transparent, #000); }
         .hero-content {
-            text-align: center;
-            max-width: 680px;
-        }
-
-        .hero h1 {
-            font-size: 64px;
-            font-weight: 700;
-            letter-spacing: -0.035em;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .hero-subtitle {
-            font-size: 21px;
-            font-weight: 500;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .hero-description {
-            font-size: 17px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 32px;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            border-radius: 9999px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .hero-cta:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: 40px;
-            font-weight: 600;
-            letter-spacing: -0.025em;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 17px;
-            font-weight: 400;
-        }
-
-        /* Filter Buttons */
-        .filter-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 48px;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            border: 0.5px solid var(--border-glass-light);
-            border-radius: 9999px;
-            background: var(--bg-glass);
-            backdrop-filter: saturate(180%) blur(16px);
-            -webkit-backdrop-filter: saturate(180%) blur(16px);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
-            box-shadow: var(--shadow-glass);
-        }
-
-        .filter-btn:hover {
-            background: var(--bg-glass-hover);
-            color: var(--text-primary);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .filter-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 64px 24px;
-            color: var(--text-secondary);
-            font-size: 17px;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .project {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-glass);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .project:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-elevated);
-        }
-
-        .future-projects {
-            grid-column: 1 / -1;
-            padding: 28px;
-            background: var(--bg-card);
-            border: 1.5px dashed rgba(0, 113, 227, 0.45);
-            border-radius: 20px;
-            box-shadow: var(--shadow-glass);
-        }
-
-        .future-projects-count {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .future-projects-text {
-            color: var(--text-secondary);
-            font-size: 16px;
-            margin-bottom: 18px;
-        }
-
-        .future-projects-dates {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .future-projects-status {
-            display: inline-block;
-            padding: 5px 12px;
-            margin-bottom: 14px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--accent);
-            background: rgba(0, 113, 227, 0.1);
-            border-radius: 9999px;
-        }
-
-        .project.featured {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1.5px solid #d4a017;
-            box-shadow: var(--shadow-glass), 0 0 20px rgba(212, 160, 23, 0.15);
-        }
-
-        .project.featured .project-image {
-            aspect-ratio: auto;
-        }
-
-        [data-theme="dark"] .project.featured {
-            border-color: #e6b422;
-            box-shadow: var(--shadow-glass), 0 0 24px rgba(230, 180, 34, 0.2);
-        }
-
-        .project.featured:hover {
-            box-shadow: var(--shadow-elevated), 0 0 30px rgba(212, 160, 23, 0.2);
-        }
-
-        [data-theme="dark"] .project.featured:hover {
-            box-shadow: var(--shadow-elevated), 0 0 36px rgba(230, 180, 34, 0.25);
-        }
-
-        .project-image {
             position: relative;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 30px;
+            background: linear-gradient(140deg, rgba(215, 240, 186, 0.13), rgba(11, 29, 27, 0.46));
+            border: 1px solid rgba(232, 248, 211, 0.32);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(255, 255, 255, 0.04), 0 24px 64px rgba(1, 13, 8, 0.25);
+            -webkit-backdrop-filter: blur(28px) saturate(140%);
+            backdrop-filter: blur(28px) saturate(140%);
         }
-
-        .featured-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            padding: 5px 12px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #fff;
-            background: linear-gradient(135deg, #d4a017, #e6b422);
-            border-radius: 8px;
-            z-index: 1;
-        }
-
-        .project.hiding {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        .project.hidden {
-            display: none;
-        }
-
-        .project-image {
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .hero h1 { font-size: clamp(48px, 5vw, 76px); font-weight: 600; line-height: 1.05; letter-spacing: -0.065em; margin-bottom: 14px; }
+        .hero-subtitle { color: #e0efc9; font-size: 15px; font-weight: 500; margin-bottom: 16px; }
+        .hero-description { color: #d4dfd2; font-size: 14px; line-height: 1.75; margin-bottom: 25px; }
+        .hero-cta { display: inline-flex; align-items: center; gap: 24px; padding: 12px 18px; border-radius: 16px; background: rgba(235, 246, 217, 0.91); border: 1px solid rgba(255, 255, 255, 0.55); color: #20372b; font-size: 13px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 #fff, 0 4px 18px rgba(1, 13, 8, 0.14); transition: background-color 0.2s, transform 0.2s; }
+        .hero-cta:hover { background: #f5ffe8; transform: translateY(-2px); }
+        .hero-cta:focus-visible { outline-color: #e5f5b9; }
+        .hero-project { margin-left: auto; padding: 16px 22px; border-radius: 22px; border: 1px solid rgba(231, 247, 215, 0.25); background: rgba(20, 38, 31, 0.34); -webkit-backdrop-filter: blur(24px) saturate(140%); backdrop-filter: blur(24px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 28px rgba(0, 0, 0, 0.14); }
+        .hero-project-status { display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: #cfdfb9; margin-bottom: 3px; }
+        .hero-project strong { font-size: 19px; font-weight: 500; letter-spacing: -0.04em; }
+        .section-header { margin-bottom: 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+        .section-header h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 500; line-height: 1.15; letter-spacing: -0.055em; }
+        .section-header p { color: var(--text-secondary); font-size: 15px; max-width: 560px; }
+        .filter-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+        .filter-btn { border: 1px solid var(--glass-border); border-radius: 18px; padding: 10px 18px; color: var(--text-secondary); background: var(--glass); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); font-size: 12px; font-weight: 500; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+        .filter-btn:hover { background: var(--glass-hover); color: var(--text-primary); }
+        .filter-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: transparent; }
+        .no-results { display: none; padding: 56px 0; color: var(--text-secondary); }
+        .no-results.show { display: block; }
+        .work-toolbar { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 40px; }
+        .work-toolbar .section-header { margin-bottom: 0; flex: 1; }
+        .work-toolbar .filter-container { margin-bottom: 0; max-width: 520px; justify-content: flex-end; }
+        .projects-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 88px; }
+        .future-projects, .ui-gallery-item, .team-badge, .skill-group, .professional-activity-item, .contact-item { border: 1px solid var(--glass-border); background: var(--glass); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(20px) saturate(125%); backdrop-filter: blur(20px) saturate(125%); }
+        .project { position: relative; min-width: 0; overflow: hidden; border: 1px solid var(--glass-border); border-radius: 28px; background: var(--glass); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(20px) saturate(125%); backdrop-filter: blur(20px) saturate(125%); transition: opacity 0.3s, transform 0.3s; }
+        .project.hiding { opacity: 0; transform: translateY(12px); }
+        .project.hidden { display: none; }
+        .project-image { position: relative; margin: 0; overflow: hidden; background: var(--accent-soft); }
+        .project-image img { display: block; width: 100%; height: auto; }
+        .project.featured { border-color: var(--accent); }
+        .featured-badge { position: absolute; top: 24px; left: 24px; z-index: 1; padding: 9px 15px; border: 1px solid rgba(238, 252, 218, 0.4); border-radius: 14px; background: rgba(17, 39, 27, 0.58); color: #eff5e3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
         .project-info {
-            padding: 20px 24px 24px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-radius: 6px;
-            background: var(--border-subtle);
-            color: var(--text-secondary);
-        }
-
-        .tag.addon { background: rgba(88, 86, 214, 0.15); color: #5856d6; }
-        .tag.world { background: rgba(52, 199, 89, 0.15); color: #34c759; }
-        .tag.fullstack { background: rgba(0, 122, 255, 0.15); color: #007aff; }
-        .tag.collaboration { background: rgba(255, 45, 85, 0.15); color: #ff2d55; }
-        .tag.leadrole { background: rgba(255, 149, 0, 0.15); color: #ff9500; }
-        .tag.free { background: rgba(48, 209, 88, 0.15); color: #30d158; }
-        .tag.year { background: var(--text-primary); color: var(--bg-primary); }
-        .tag.update { background: rgba(175, 82, 222, 0.15); color: #af52de; }
-
-        [data-theme="dark"] .tag.addon { background: rgba(94, 92, 230, 0.25); color: #5e5ce6; }
-        [data-theme="dark"] .tag.world { background: rgba(48, 209, 88, 0.25); color: #30d158; }
-        [data-theme="dark"] .tag.fullstack { background: rgba(10, 132, 255, 0.25); color: #0a84ff; }
-        [data-theme="dark"] .tag.collaboration { background: rgba(255, 55, 95, 0.25); color: #ff375f; }
-        [data-theme="dark"] .tag.leadrole { background: rgba(255, 159, 10, 0.25); color: #ff9f0a; }
-        [data-theme="dark"] .tag.free { background: rgba(48, 209, 88, 0.25); color: #30d158; }
-        [data-theme="dark"] .tag.update { background: rgba(191, 90, 242, 0.25); color: #bf5af2; }
-
-        .project-info h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.01em;
-        }
-
-        .project-info p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 16px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            padding: 8px 16px;
-            background: rgba(0, 113, 227, 0.08);
-            border-radius: 9999px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] .project-link {
-            background: rgba(10, 132, 255, 0.15);
-        }
-
-        .project-link:hover {
-            background: var(--accent);
-            color: #fff;
-            gap: 8px;
-        }
-
-        .project-link .arrow {
-            font-size: 16px;
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .project-link:hover .arrow {
-            transform: translateX(2px);
-        }
-
-        /* Experience Section - Fresh Design */
-        #experience {
-            background: transparent;
-        }
-
-        .experience-content {
-            display: flex;
-            flex-direction: column;
-            gap: 56px;
-        }
-
-        /* Teams Row */
-        .teams-section {
-            text-align: center;
-        }
-
-        .teams-section h3 {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-
-        .teams-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .team-badge {
-            padding: 12px 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--text-primary);
-            box-shadow: var(--shadow-glass);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .team-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .team-badge.levelatics:hover { background: #a8d8ea; color: #1a1a1a; }
-        .team-badge.blockfactory:hover { background: #f4b8c8; color: #1a1a1a; }
-        .team-badge.crimson:hover { background: #e85555; color: #fff; }
-        .team-badge.msk:hover { background: #8b1a1a; color: #fff; }
-        .team-badge.rareloot:hover { background: #1a3a6b; color: #fff; }
-        .team-badge.eternal:hover { background: linear-gradient(135deg, #ff9500, #af52de); color: #fff; }
-        .team-badge.flowscape:hover { background: #d8f4ff; color: #1a1a1a; }
-
-        .ui-gallery-grid {
-            columns: 2 420px;
-            column-gap: 18px;
-        }
-
-        .ui-gallery-item {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            margin: 0 0 18px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            box-shadow: var(--shadow-glass);
-            overflow: hidden;
-            break-inside: avoid;
-            transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .ui-gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-elevated);
-        }
-
-        .ui-gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Skills Grid */
-        .skills-section h3 {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .skill-group-title.knowledge { color: #007aff; }
-        [data-theme="dark"] .skill-group-title.knowledge { color: #0a84ff; }
-        .skill-dot.knowledge { background: #007aff; }
-        [data-theme="dark"] .skill-dot.knowledge { background: #0a84ff; }
-
-        .skills-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 12px 28px;
+            margin: 0;
+            padding: 24px 28px;
+            border-top: 1px solid var(--border-subtle);
         }
-
-        .skill-group {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: var(--shadow-glass);
+        .project-heading { min-width: 0; grid-column: 1; }
+        .project-details { display: contents; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+        .tag { display: inline-block; padding: 5px 10px; border: 1px solid var(--border-subtle); border-radius: 9px; background: var(--accent-soft); color: var(--text-secondary); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+        .tag.leadrole, .tag.free, .tag.update { color: var(--accent); }
+        .tag.year { color: var(--text-primary); background: var(--glass); }
+        .project-info h3 { font-size: clamp(24px, 2.7vw, 34px); font-weight: 500; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+        .project-info p { grid-column: 1; max-width: 80ch; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+        .project-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border-subtle); background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background-color 0.2s, color 0.2s; }
+        .project-link:hover { background: var(--text-primary); color: var(--bg-primary); }
+        .project-link .arrow { font-size: 20px; line-height: 1; }
+        .future-projects { grid-column: 1 / -1; padding: 36px; border-radius: 26px; }
+        .future-projects-status { display: inline-block; color: var(--accent); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+        .future-projects-count { font-size: clamp(24px, 3vw, 36px); font-weight: 500; letter-spacing: -0.045em; margin-bottom: 12px; }
+        .future-projects-text { color: var(--text-secondary); font-size: 14px; max-width: 700px; margin-bottom: 22px; }
+        .future-projects-dates { display: flex; gap: 8px; flex-wrap: wrap; }
+        .future-projects-dates .tag { padding: 8px 14px; font-size: 11px; }
+        .ui-gallery-grid { columns: 2 440px; column-gap: 24px; }
+        .ui-gallery-item { display: inline-block; vertical-align: top; width: 100%; margin-bottom: 24px; border-radius: 24px; overflow: hidden; break-inside: avoid; }
+        .ui-gallery-item img { display: block; width: 100%; height: auto; }
+        .experience-content { display: flex; flex-direction: column; gap: 40px; }
+        .teams-section h3, .skills-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; color: var(--text-secondary); margin-bottom: 18px; }
+        .teams-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .team-badge { padding: 12px 18px; border-radius: 15px; font-size: 13px; font-weight: 500; }
+        .skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+        .skill-group { min-width: 0; padding: 24px; border-radius: 24px; }
+        .skill-group-title { color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 20px; }
+        .skill-list { display: flex; flex-direction: column; gap: 12px; }
+        .skill-item { display: flex; align-items: center; gap: 10px; font-size: 13px; overflow-wrap: anywhere; }
+        .skill-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; background: var(--accent); }
+        .professional-activity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+        .professional-activity-item { border-radius: 24px; padding: 24px; }
+        .professional-activity-label { font-size: 10px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.09em; color: var(--text-secondary); margin-bottom: 16px; }
+        .professional-activity-value { font-size: 15px; line-height: 1.6; font-weight: 500; }
+        #contact { padding-bottom: 100px; }
+        .contact-container { width: 100%; }
+        .contact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+        .contact-item { min-width: 0; display: flex; align-items: center; gap: 16px; border-radius: 24px; padding: 24px; color: var(--text-primary); text-decoration: none; transition: background-color 0.2s, transform 0.2s; }
+        .contact-item:hover { background: var(--glass-hover); transform: translateY(-3px); }
+        .contact-icon { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border: 1px solid var(--border-subtle); border-radius: 14px; background: var(--accent-soft); font-size: 20px; }
+        .contact-info { min-width: 0; }
+        .contact-label { color: var(--text-secondary); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+        .contact-value { font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
+        @media (max-width: 1200px) {
+            .nav-container { grid-template-columns: 1fr; gap: 10px; }
+            .nav-brand { grid-column: 1; grid-row: 1; }
+            nav ul { grid-column: 1 / -1; grid-row: 2; width: max-content; max-width: 100%; justify-self: end; overflow-x: auto; }
+            .work-toolbar { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .work-toolbar .filter-container { justify-content: flex-start; max-width: none; }
+            .skills-grid, .professional-activity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
-
-        .skill-group-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border-subtle);
+        @media (max-width: 760px) {
+            html { scroll-padding-top: 156px; }
+            nav { top: 16px; left: 20px; right: 20px; }
+            .nav-brand { font-size: 22px; }
+            nav ul { width: 100%; justify-self: stretch; border-radius: 22px; }
+            nav ul a { padding: 9px 12px; }
+            section { padding: 64px 20px; }
+            section:not(.hero) + section::before { left: 20px; right: 20px; }
+            .hero { min-height: max(760px, 100svh); padding: 170px 20px 28px; gap: 16px; align-items: flex-start; flex-direction: column; justify-content: flex-end; }
+            .hero-scene { object-position: 55% center; }
+            .hero-content { max-width: 380px; width: 100%; padding: 24px; border-radius: 26px; }
+            .hero h1 { font-size: 54px; }
+            .hero-description { font-size: 13px; }
+            .hero-project { margin-left: 0; padding: 12px 18px; border-radius: 18px; }
+            .hero-project strong { font-size: 16px; }
+            .hero-project-status { font-size: 9px; }
+            .projects-grid { gap: 48px; }
+            .project { border-radius: 22px; }
+            .project-info { grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+            .project-info h3 { font-size: 26px; }
+            .project-link { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 4px; }
+            .featured-badge { top: 14px; left: 14px; padding: 7px 12px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .ui-gallery-grid { columns: 1; }
         }
-
-        .skill-group-title.work { color: #34c759; }
-        .skill-group-title.behaviour { color: #ff9500; }
-        .skill-group-title.resource { color: #af52de; }
-
-        [data-theme="dark"] .skill-group-title.work { color: #30d158; }
-        [data-theme="dark"] .skill-group-title.behaviour { color: #ff9f0a; }
-        [data-theme="dark"] .skill-group-title.resource { color: #bf5af2; }
-
-        .skill-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        @media (max-width: 540px) {
+            .skills-grid, .professional-activity-grid { grid-template-columns: 1fr; }
+            .future-projects { padding: 26px; }
+            .filter-btn { padding: 9px 13px; }
+            .filter-container { gap: 6px; }
         }
-
-        .skill-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .skill-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .skill-dot.work { background: #34c759; }
-        .skill-dot.behaviour { background: #ff9500; }
-        .skill-dot.resource { background: #af52de; }
-
-        [data-theme="dark"] .skill-dot.work { background: #30d158; }
-        [data-theme="dark"] .skill-dot.behaviour { background: #ff9f0a; }
-        [data-theme="dark"] .skill-dot.resource { background: #bf5af2; }
-
-        .professional-activity-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
-
-        .professional-activity-item {
-            padding: 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            box-shadow: var(--shadow-glass);
-        }
-
-        .professional-activity-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-
-        .professional-activity-value {
-            color: var(--text-primary);
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        /* Contact */
-        #contact {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .contact-container {
-            max-width: 600px;
-            width: 100%;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 18px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 14px;
-            text-decoration: none;
-            color: var(--text-primary);
-            box-shadow: var(--shadow-glass);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .contact-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            background: var(--bg-glass-hover);
-        }
-
-        .contact-icon {
-            font-size: 24px;
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .contact-info {
-            text-align: left;
-            min-width: 0;
-        }
-
-        .contact-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .contact-value {
-            font-size: 15px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                top: 12px;
-                padding: 6px 8px;
-            }
-
-            .nav-brand {
-                display: none;
-            }
-
-            nav ul {
-                gap: 2px;
-            }
-
-            nav a {
-                font-size: 12px;
-                padding: 6px 8px;
-            }
-
-            .theme-toggle {
-                width: 30px;
-                height: 30px;
-            }
-
-            .language-selector {
-                margin-left: 0;
-                padding-left: 0;
-                border-left: none;
-            }
-
-            .language-btn {
-                font-size: 11px;
-                padding: 6px 6px;
-            }
-
-            section {
-                padding: 100px 16px 60px;
-            }
-
-            .hero h1 {
-                font-size: 48px;
-            }
-
-            .hero-subtitle {
-                font-size: 20px;
-            }
-
-            .hero-description {
-                font-size: 16px;
-            }
-
-            .section-header h2 {
-                font-size: 32px;
-            }
-
-            .section-header p {
-                font-size: 15px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .project:hover {
-                transform: translateY(-4px);
-            }
-
-            .project.featured {
-                grid-template-columns: 1fr;
-            }
-
-            .project.featured .project-image {
-                aspect-ratio: 16 / 9;
-            }
-
-            .future-projects {
-                padding: 24px 18px;
-            }
-
-            .future-projects-count {
-                font-size: 28px;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .professional-activity-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .ui-gallery-grid {
-                columns: 1;
-            }
-
-            .ui-gallery-item:hover {
-                transform: translateY(-4px);
-            }
-
-            .skill-group {
-                padding: 20px;
-            }
-
-            .teams-row {
-                gap: 8px;
-            }
-
-            .team-badge {
-                padding: 10px 18px;
-                font-size: 14px;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            html {
-                scroll-behavior: auto;
-            }
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+        body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        img { -webkit-user-drag: none; -webkit-touch-callout: none; pointer-events: none; }
+        .contact-item, .contact-item * { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+        @media print {
+            body > :not(#contact), #contact .section-header { display: none !important; }
+            body { background: #fff !important; }
+            #contact { max-width: none; margin: 0; padding: 0; }
+            .contact-item, .contact-label, .contact-value { color: #000 !important; background: none !important; box-shadow: none !important; }
         }
     </style>
 </head>
 <body>
-    <a href="#hero" class="skip-link" data-i18n="skip">Skip to content</a>
-    <nav>
+    <div class="page-background" aria-hidden="true">
+        <div class="page-background-layer active" style="background-image: url('resources/better_structure_keyart_v2_noWM.png')"></div>
+    </div>
+    <a href="#hero" class="skip-link">Skip to content</a>
+    <nav aria-label="Main navigation">
         <div class="nav-container">
             <a href="#hero" class="nav-brand">Jainlyn</a>
             <ul>
-                <li><a href="#work" class="nav-link" data-i18n="navWork">Work</a></li>
-                <li><a href="#ui-gallery" class="nav-link" data-i18n="navUiGallery">UI Gallery</a></li>
-                <li><a href="#experience" class="nav-link" data-i18n="navExperience">Experience</a></li>
-                <li><a href="#professional-activity" class="nav-link" data-i18n="navProfessionalActivity">Professional Activity</a></li>
-                <li><a href="#contact" class="nav-link" data-i18n="navContact">Contact</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#ui-gallery" class="nav-link">UI Gallery</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#professional-activity" class="nav-link">Professional Activity</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" data-i18n-aria="toggleTheme">
-                <span class="icon sun">&#9728;</span>
-                <span class="icon moon">&#9790;</span>
-            </button>
-            <div class="language-selector">
-                <button class="language-btn active" data-language="en" onclick="setLanguage('en')">EN</button>
-                <button class="language-btn" data-language="de" onclick="setLanguage('de')">DE</button>
-                <button class="language-btn" data-language="fr" onclick="setLanguage('fr')">FR</button>
-            </div>
         </div>
     </nav>
-
-    <!-- Hero -->
     <section class="hero" id="hero">
+        <img draggable="false" class="hero-scene" src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures" fetchpriority="high" width="1920" height="1080">
+        <div class="hero-atmosphere" aria-hidden="true"></div>
         <div class="hero-content">
             <h1>Jainlyn</h1>
             <p class="hero-subtitle">Minecraft Bedrock Developer</p>
-            <p class="hero-description" data-i18n="heroDescription">Self-employed Minecraft Bedrock developer specializing in Marketplace content, commercial client projects, and game systems development.</p>
-            <a href="#work" class="hero-cta"><span data-i18n="viewWork">View my work</span> <span>↓</span></a>
+            <p class="hero-description">Self-employed Minecraft Bedrock developer specializing in Marketplace content, commercial client projects, and game systems development.</p>
+            <a href="#work" class="hero-cta"><span>View my work</span> <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-project">
+            <span class="hero-project-status">Featured</span>
+            <strong>Better Structures</strong>
         </div>
     </section>
 
     <section id="work">
-        <div class="section-header">
-            <h2 data-i18n="workTitle">Work</h2>
-            <p data-i18n="workSubtitle">Published Minecraft Bedrock Marketplace content</p>
+        <div class="work-toolbar">
+            <div class="section-header">
+                <h2>Work</h2>
+                <p>Published Minecraft Bedrock Marketplace content</p>
+            </div>
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="addon">Add-On</button>
+                <button class="filter-btn" data-filter="leadrole">Lead Role</button>
+                <button class="filter-btn" data-filter="collaboration">Team-Work</button>
+                <button class="filter-btn" data-filter="world">World</button>
+                <button class="filter-btn" data-filter="free">FREE</button>
+            </div>
         </div>
 
-        <div class="filter-container">
-            <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
-            <button class="filter-btn" data-filter="addon" data-i18n="tagAddon">Add-On</button>
-            <button class="filter-btn" data-filter="leadrole" data-i18n="tagLeadRole">Lead Role</button>
-            <button class="filter-btn" data-filter="collaboration" data-i18n="tagTeamWork">Team-Work</button>
-            <button class="filter-btn" data-filter="world" data-i18n="tagWorld">World</button>
-            <button class="filter-btn" data-filter="free" data-i18n="tagFree">FREE</button>
-        </div>
-
-        <div class="no-results" data-i18n="noResults">No projects found with that filter.</div>
+        <div class="no-results">No projects found with that filter.</div>
 
         <div class="projects-grid">
-            <div class="project featured">
-                <div class="project-image">
-                    <span class="featured-badge" data-i18n="featured">Featured</span>
-                    <img src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures">
-                </div>
+            <article class="project featured" aria-labelledby="project-better-structures">
+                <figure class="project-image">
+                    <span class="featured-badge">Featured</span>
+                    <img draggable="false" src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration">TEAM WORK</span>
-                        <span class="tag year">2026</span>
-                        <span class="tag update" data-i18n="tagUpdate">UPDATE</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">TEAM WORK</span>
+                            <span class="tag update">UPDATE</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-better-structures">Better Structures</h3>
                     </div>
-                    <h3>Better Structures</h3>
-                    <p>Better Structures Add-On packs your OWN WORLD with 10+ epic structures! Hunt through fresh dungeons and upgraded vanilla sites for fierce fights and hidden treasure.</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/blocklab-studios/better-structures-2.0-add--on/5e6039aa-a4a1-4508-880c-564129ce04bc" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Better Structures Add-On packs your OWN WORLD with 10+ epic structures! Hunt through fresh dungeons and upgraded vanilla sites for fierce fights and hidden treasure.</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/blocklab-studios/better-structures-2.0-add--on/5e6039aa-a4a1-4508-880c-564129ce04bc" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/bossesRiseThumbnail.jpg" alt="Bosses Rise">
-                </div>
+            <article class="project" aria-labelledby="project-bosses-rise">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/bossesRiseThumbnail.jpg" alt="Bosses Rise" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag year">2026</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-bosses-rise">Bosses Rise</h3>
                     </div>
-                    <h3>Bosses Rise</h3>
-                    <p>Bosses' Rise Add-On adds 7 epic Souls-like bosses w/ unique AI behavior, new animations, weapons, armors &amp; more!</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/block-factory/bosses-rise-add--on/d4e0c8e8-fce1-4828-94f0-764b5431e5a5" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Bosses' Rise Add-On adds 7 epic Souls-like bosses w/ unique AI behavior, new animations, weapons, armors &amp; more!</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/block-factory/bosses-rise-add--on/d4e0c8e8-fce1-4828-94f0-764b5431e5a5" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/BiomesExpanded.jpg" alt="Biomes Expanded">
-                </div>
+            <article class="project" aria-labelledby="project-biomes-expanded">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/BiomesExpanded.jpg" alt="Biomes Expanded" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag year">2026</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag leadrole">Lead Role</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-biomes-expanded">Biomes Expanded</h3>
                     </div>
-                    <h3>Biomes Expanded</h3>
-                    <p>Add 20 NEW BIOMES to ANY WORLD! This Add-On overhauls the Overworld with plenty of new things to explore.</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/biomes-expanded/443b7d67-49cb-4255-ae6a-d83c80d8cccc" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Add 20 NEW BIOMES to ANY WORLD! This Add-On overhauls the Overworld with plenty of new things to explore.</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/biomes-expanded/443b7d67-49cb-4255-ae6a-d83c80d8cccc" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/blockpack.png" alt="BlockPack Add-on">
-                </div>
+            <article class="project" aria-labelledby="project-blockpack-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/blockpack.png" alt="BlockPack Add-on" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag year">2026</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-blockpack-add-on">BlockPack Add-on</h3>
                     </div>
-                    <h3>BlockPack Add-on</h3>
-                    <p>BlockPack Add-on adds +1000 CRAFTABLE &amp; 50 unique FUNCTIONAL new blocks</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp?id=8970dbd7-a3e1-4fc9-b74a-05e6acc6830f" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>BlockPack Add-on adds +1000 CRAFTABLE &amp; 50 unique FUNCTIONAL new blocks</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp?id=8970dbd7-a3e1-4fc9-b74a-05e6acc6830f" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/cavesExpanded.png" alt="Caves Expanded Add-On">
-                </div>
+            <article class="project" aria-labelledby="project-caves-expanded-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/cavesExpanded.png" alt="Caves Expanded Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
-                        <span class="tag year">2025</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag leadrole">Lead Role</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-caves-expanded-add-on">Caves Expanded Add-On</h3>
                     </div>
-                    <h3>Caves Expanded Add-On</h3>
-                    <p>Expand your world with 6 new cave biomes. These biomes add new mobs, dungeons, mechanics, items and blocks to ANY world!</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/caves-expanded-add--on/211125ac-e526-452b-87e5-1803eb3f3973" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Expand your world with 6 new cave biomes. These biomes add new mobs, dungeons, mechanics, items and blocks to ANY world!</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/caves-expanded-add--on/211125ac-e526-452b-87e5-1803eb3f3973" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/ghosts.png" alt="Ghosts">
-                </div>
+            <article class="project" aria-labelledby="project-utility-tools">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/UtilityTools.png" alt="Utility Tools" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag world" data-i18n="tagWorld">World</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
-                        <span class="tag year">2026</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag collaboration">Teamwork</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-utility-tools">Utility Tools</h3>
                     </div>
-                    <h3>Ghosts</h3>
-                    <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Adds on 40+ craftable tools! your world UtilityTools Add-On<br><br>+ Backpack, Drill, Chainsaw, Dynamic Light, Warp pad<br>+ Deepforge, Training dummy, Multitools, XP storage</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/block-factory/utility-tools-add--on/2f9ba826-14c9-43e2-973e-3364d67ee1c0" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/monsters.png" alt="Monsters 1.2 Add-On">
-                </div>
+            <article class="project" aria-labelledby="project-ghosts">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/ghosts.png" alt="Ghosts" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag update" data-i18n="tagUpdate">Update</span>
-                        <span class="tag year">2025</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag world">World</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag leadrole">Lead Role</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-ghosts">Ghosts</h3>
                     </div>
-                    <h3>Monsters 1.2 Add-On</h3>
-                    <p>Add 20+ NEW MONSTERS to ANY WORLD! Find monsters across the world with naturally spawning biomes and 4 challenging bosses.</p>
-                    <a href="https://marketplace.minecraft.net/en-us/pdp?id=ff268116-6450-44ed-a4b3-d25c1672b825" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/mythicalConquest.jpg" alt="Mythical Conquest Add-On">
-                </div>
+            <article class="project" aria-labelledby="project-monsters-1-2-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/monsters.png" alt="Monsters 1.2 Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag year">2025</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag update">Update</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-monsters-1-2-add-on">Monsters 1.2 Add-On</h3>
                     </div>
-                    <h3>Mythical Conquest Add-On</h3>
-                    <p>Embark on a medieval adventure filled with towering fantasy creatures! Test your strength in this upgraded survival experience.</p>
-                    <a href="https://www.minecraft.net/en-us/marketplace/pdp/pathway-studios/mythical-conquest/e6e88bdf-4e9d-4860-91e2-b9cfd51a66f0" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Add 20+ NEW MONSTERS to ANY WORLD! Find monsters across the world with naturally spawning biomes and 4 challenging bosses.</p>
+                        <a href="https://marketplace.minecraft.net/en-us/pdp?id=ff268116-6450-44ed-a4b3-d25c1672b825" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project" style="display: none;">
-                <div class="project-image">
-                    <img src="resources/placeholder.png" alt="Jainlyn's Tools Add-On">
-                </div>
+            <article class="project" aria-labelledby="project-mythical-conquest-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/mythicalConquest.jpg" alt="Mythical Conquest Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag free" data-i18n="tagFree">FREE</span>
-                        <span class="tag year">2026</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-mythical-conquest-add-on">Mythical Conquest Add-On</h3>
                     </div>
-                    <h3>Jainlyn's Tools Add-On</h3>
-                    <p>Coming soon...</p>
-                    <a href="#" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Embark on a medieval adventure filled with towering fantasy creatures! Test your strength in this upgraded survival experience.</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/pathway-studios/mythical-conquest/e6e88bdf-4e9d-4860-91e2-b9cfd51a66f0" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project" style="display: none;">
-                <div class="project-image">
-                    <img src="resources/toolsAddon.jpg" alt="Tools Add-On">
-                </div>
+            <article class="project" style="display: none;" aria-labelledby="project-jainlyn-s-tools-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/placeholder.png" alt="Jainlyn's Tools Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag year">2026</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag leadrole">Lead Role</span>
+                            <span class="tag free">FREE</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-jainlyn-s-tools-add-on">Jainlyn's Tools Add-On</h3>
                     </div>
-                    <h3>Tools Add-On</h3>
-                    <p>Coming soon...</p>
-                    <a href="#" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Coming soon...</p>
+                        <a href="#" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project" style="display: none;">
-                <div class="project-image">
-                    <img src="resources/placeholder.png" alt="Sky 2 Add-On">
-                </div>
+            <article class="project" style="display: none;" aria-labelledby="project-tools-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/toolsAddon.jpg" alt="Tools Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag collaboration" data-i18n="tagTeamWork">Team-Work</span>
-                        <span class="tag year">2026</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-tools-add-on">Tools Add-On</h3>
                     </div>
-                    <h3>Sky 2 Add-On</h3>
-                    <p>Coming soon...</p>
-                    <a href="#" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Coming soon...</p>
+                        <a href="#" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/endermanExpansion.jpg" alt="Enderman Expansion Add-On">
-                </div>
+            <article class="project" style="display: none;" aria-labelledby="project-sky-2-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/placeholder.png" alt="Sky 2 Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag leadrole" data-i18n="tagLeadRole">Lead Role</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag year">2025</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-sky-2-add-on">Sky 2 Add-On</h3>
                     </div>
-                    <h3>Enderman Expansion Add-On</h3>
-                    <p>Harness the mysterious might of the End with Enderman Expansion! Command a new array of powerful Enderman abilities and face off against a formidable Ender Boss.</p>
-                    <a href="https://arcaniumcreations.com/games/enderman-expansion-add-on/" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Coming soon...</p>
+                        <a href="#" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="project">
-                <div class="project-image">
-                    <img src="resources/amethystExpansion.jpg" alt="Amethyst Expansion Add-On">
-                </div>
+            <article class="project" aria-labelledby="project-enderman-expansion-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/endermanExpansion.jpg" alt="Enderman Expansion Add-On" loading="lazy" decoding="async">
+                </figure>
                 <div class="project-info">
-                    <div class="project-tags">
-                        <span class="tag addon" data-i18n="tagAddon">Add-On</span>
-                        <span class="tag fullstack" data-i18n="tagFullStack">Full-Stack</span>
-                        <span class="tag year">2025</span>
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag leadrole">Lead Role</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-enderman-expansion-add-on">Enderman Expansion Add-On</h3>
                     </div>
-                    <h3>Amethyst Expansion Add-On</h3>
-                    <p>Unleash the power of crystal with Amethyst Expansion! Master a brand-new arsenal of amethyst-infused tools and face off against powerful crystal-forged bosses.</p>
-                    <a href="https://arcaniumcreations.com/games/amethyst-expansion-add-on/" class="project-link" target="_blank">
-                        <span data-i18n="checkOut">Check out</span> <span class="arrow">→</span>
-                    </a>
+                    <div class="project-details">
+                        <p>Harness the mysterious might of the End with Enderman Expansion! Command a new array of powerful Enderman abilities and face off against a formidable Ender Boss.</p>
+                        <a href="https://arcaniumcreations.com/games/enderman-expansion-add-on/" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </article>
+
+            <article class="project" aria-labelledby="project-amethyst-expansion-add-on">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/amethystExpansion.jpg" alt="Amethyst Expansion Add-On" loading="lazy" decoding="async">
+                </figure>
+                <div class="project-info">
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-amethyst-expansion-add-on">Amethyst Expansion Add-On</h3>
+                    </div>
+                    <div class="project-details">
+                        <p>Unleash the power of crystal with Amethyst Expansion! Master a brand-new arsenal of amethyst-infused tools and face off against powerful crystal-forged bosses.</p>
+                        <a href="https://arcaniumcreations.com/games/amethyst-expansion-add-on/" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
 
             <div class="future-projects">
-                <div class="future-projects-status" data-i18n="unpublishedStatus">Separate Unpublished Pipeline</div>
-                <div class="future-projects-count" data-i18n="unpublishedCount">+9 Finished Unpublished Projects</div>
-                <div class="future-projects-text" data-i18n="unpublishedText">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
+                <div class="future-projects-status">Separate Unpublished Pipeline</div>
+                <div class="future-projects-count">+9 Finished Unpublished Projects</div>
+                <div class="future-projects-text">These projects are complete but are not part of the published content shown above. Expected publication windows:</div>
                 <div class="future-projects-dates">
                     <span class="tag year">2026 Q4</span>
                     <span class="tag year">2027 Q1</span>
@@ -1316,45 +610,45 @@
 
     <section id="ui-gallery">
         <div class="section-header">
-            <h2 data-i18n="uiGalleryTitle">UI Gallery</h2>
-            <p data-i18n="uiGallerySubtitle">Interface work for Minecraft Bedrock experiences</p>
+            <h2>UI Gallery</h2>
+            <p>Interface work for Minecraft Bedrock experiences</p>
         </div>
         <div class="ui-gallery-grid">
             <div class="ui-gallery-item">
-                <img src="resources/UIA.png" alt="UI Gallery A">
+                <img draggable="false" src="resources/UIA.png" alt="UI Gallery A">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIB.png" alt="UI Gallery B">
+                <img draggable="false" src="resources/UIB.png" alt="UI Gallery B">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIC.png" alt="UI Gallery C">
+                <img draggable="false" src="resources/UIC.png" alt="UI Gallery C">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UID.png" alt="UI Gallery D">
+                <img draggable="false" src="resources/UID.png" alt="UI Gallery D">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIE.png" alt="UI Gallery E">
+                <img draggable="false" src="resources/UIE.png" alt="UI Gallery E">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIF.png" alt="UI Gallery F">
+                <img draggable="false" src="resources/UIF.png" alt="UI Gallery F">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIG.png" alt="UI Gallery G">
+                <img draggable="false" src="resources/UIG.png" alt="UI Gallery G">
             </div>
             <div class="ui-gallery-item">
-                <img src="resources/UIH.png" alt="UI Gallery H">
+                <img draggable="false" src="resources/UIH.png" alt="UI Gallery H">
             </div>
         </div>
     </section>
 
     <section id="experience">
         <div class="section-header">
-            <h2 data-i18n="experienceTitle">Experience</h2>
-            <p data-i18n="experienceSubtitle">Teams and skills I've developed</p>
+            <h2>Experience</h2>
+            <p>Teams and skills I've developed</p>
         </div>
         <div class="experience-content">
             <div class="teams-section">
-                <h3 data-i18n="teams">Teams</h3>
+                <h3>Teams</h3>
                 <div class="teams-row">
                     <span class="team-badge levelatics">Levelatics</span>
                     <span class="team-badge blockfactory">BlockFactory</span>
@@ -1366,37 +660,37 @@
                 </div>
             </div>
             <div class="skills-section">
-                <h3 data-i18n="skills">Skills</h3>
+                <h3>Skills</h3>
                 <div class="skills-grid">
                     <div class="skill-group">
-                        <div class="skill-group-title work" data-i18n="skillWork">Work</div>
+                        <div class="skill-group-title work">Work</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="teamwork">Teamwork</span></div>
-                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="communication">Communication</span></div>
-                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="availability">Availability</span></div>
-                            <div class="skill-item"><span class="skill-dot work"></span><span data-i18n="flexibility">Flexibility</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span>Teamwork</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span>Communication</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span>Availability</span></div>
+                            <div class="skill-item"><span class="skill-dot work"></span><span>Flexibility</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title behaviour" data-i18n="behaviour">Behaviour</div>
+                        <div class="skill-group-title behaviour">Behaviour</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="scriptApi">Script API</span></div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="behaviourPacks">Behaviour Packs</span></div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="blocksItems">Blocks & Items</span></div>
-                            <div class="skill-item"><span class="skill-dot behaviour"></span><span data-i18n="complexEntities">Complex Entities</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Script API</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Behaviour Packs</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Blocks & Items</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Complex Entities</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title resource" data-i18n="resource">Resource</div>
+                        <div class="skill-group-title resource">Resource</div>
                         <div class="skill-list">
-                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="entityMaterials">Entity Materials</span></div>
-                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="jsonUi">Json-UI</span></div>
-                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="rpFrameworks">RP Frameworks</span></div>
-                            <div class="skill-item"><span class="skill-dot resource"></span><span data-i18n="attachables">Attachables</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>Entity Materials</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>Json-UI</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>RP Frameworks</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>Attachables</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
-                        <div class="skill-group-title knowledge" data-i18n="knowledge">Knowledge</div>
+                        <div class="skill-group-title knowledge">Knowledge</div>
                         <div class="skill-list">
                             <div class="skill-item"><span class="skill-dot knowledge"></span>Blockbench</div>
                             <div class="skill-item"><span class="skill-dot knowledge"></span>Bridge</div>
@@ -1414,24 +708,24 @@
 
     <section id="professional-activity">
         <div class="section-header">
-            <h2 data-i18n="professionalActivityTitle">Professional Activity</h2>
+            <h2>Professional Activity</h2>
         </div>
         <div class="professional-activity-grid">
             <div class="professional-activity-item">
-                <div class="professional-activity-label" data-i18n="activeSince">Active since</div>
+                <div class="professional-activity-label">Active since</div>
                 <div class="professional-activity-value">2025</div>
             </div>
             <div class="professional-activity-item">
-                <div class="professional-activity-label" data-i18n="mainActivity">Main activity</div>
-                <div class="professional-activity-value" data-i18n="minecraftDevelopment">Minecraft Bedrock development</div>
+                <div class="professional-activity-label">Main activity</div>
+                <div class="professional-activity-value">Minecraft Bedrock development</div>
             </div>
             <div class="professional-activity-item">
-                <div class="professional-activity-label" data-i18n="activityType">Type</div>
-                <div class="professional-activity-value" data-i18n="contractorType">Self-employed / independent contractor</div>
+                <div class="professional-activity-label">Type</div>
+                <div class="professional-activity-value">Self-employed / independent contractor</div>
             </div>
             <div class="professional-activity-item">
-                <div class="professional-activity-label" data-i18n="clients">Clients</div>
-                <div class="professional-activity-value" data-i18n="clientCountries">Germany, UAE, France, Austria, UK, etc.</div>
+                <div class="professional-activity-label">Clients</div>
+                <div class="professional-activity-value">Germany, UAE, France, Austria, UK, etc.</div>
             </div>
         </div>
     </section>
@@ -1439,28 +733,28 @@
     <section id="contact">
         <div class="contact-container">
             <div class="section-header">
-                <h2 data-i18n="contactTitle">Get in Touch</h2>
-                <p data-i18n="contactSubtitle">Professional contact information and project references.</p>
+                <h2>Get in Touch</h2>
+                <p>Professional contact information and project references.</p>
             </div>
             <div class="contact-grid">
                 <a href="mailto:iamjainlyn@gmail.com" class="contact-item">
                     <span class="contact-icon">✉️</span>
                     <div class="contact-info">
-                        <div class="contact-label" data-i18n="email">Email</div>
+                        <div class="contact-label">Email</div>
                         <div class="contact-value">iamjainlyn@gmail.com</div>
                     </div>
                 </a>
                 <a href="https://discord.com/users/gainser" class="contact-item" target="_blank">
                     <span class="contact-icon">💬</span>
                     <div class="contact-info">
-                        <div class="contact-label" data-i18n="discord">Discord</div>
+                        <div class="contact-label">Discord</div>
                         <div class="contact-value">gainser</div>
                     </div>
                 </a>
                 <a href="https://github.com/jainlyn" class="contact-item" target="_blank">
                     <span class="contact-icon">🐙</span>
                     <div class="contact-info">
-                        <div class="contact-label" data-i18n="github">GitHub</div>
+                        <div class="contact-label">GitHub</div>
                         <div class="contact-value">jainlyn</div>
                     </div>
                 </a>
@@ -1469,227 +763,6 @@
     </section>
 
     <script>
-        const translations = {
-            en: {
-                skip: 'Skip to content',
-                toggleTheme: 'Toggle theme',
-                navWork: 'Work',
-                navUiGallery: 'UI Gallery',
-                navProfessionalActivity: 'Professional Activity',
-                navExperience: 'Experience',
-                navContact: 'Contact',
-                heroDescription: 'Self-employed Minecraft Bedrock developer specializing in Marketplace content, commercial client projects, and game systems development.',
-                viewWork: 'View my work',
-                workTitle: 'Work',
-                workSubtitle: 'Published Minecraft Bedrock Marketplace content',
-                filterAll: 'All',
-                tagAddon: 'Add-On',
-                tagLeadRole: 'Lead Role',
-                tagTeamWork: 'Team-Work',
-                tagWorld: 'World',
-                tagFree: 'FREE',
-                tagUpdate: 'Update',
-                tagFullStack: 'Full-Stack',
-                featured: 'Featured',
-                checkOut: 'Check out',
-                noResults: 'No projects found with that filter.',
-                unpublishedStatus: 'Separate Unpublished Pipeline',
-                unpublishedCount: '+9 Finished Unpublished Projects',
-                unpublishedText: 'These projects are complete but are not part of the published content shown above. Expected publication windows:',
-                uiGalleryTitle: 'UI Gallery',
-                uiGallerySubtitle: 'Interface work for Minecraft Bedrock experiences',
-                professionalActivityTitle: 'Professional Activity',
-                activeSince: 'Active since',
-                mainActivity: 'Main activity',
-                minecraftDevelopment: 'Minecraft Bedrock development',
-                activityType: 'Type',
-                contractorType: 'Self-employed / independent contractor',
-                clients: 'Clients',
-                clientCountries: 'Germany, UAE, France, Austria, UK, etc.',
-                experienceTitle: 'Experience',
-                experienceSubtitle: 'Teams and skills I\'ve developed',
-                teams: 'Teams',
-                skills: 'Skills',
-                skillWork: 'Work',
-                teamwork: 'Teamwork',
-                communication: 'Communication',
-                availability: 'Availability',
-                flexibility: 'Flexibility',
-                behaviour: 'Behaviour',
-                scriptApi: 'Script API',
-                behaviourPacks: 'Behaviour Packs',
-                blocksItems: 'Blocks & Items',
-                complexEntities: 'Complex Entities',
-                resource: 'Resource',
-                entityMaterials: 'Entity Materials',
-                jsonUi: 'Json-UI',
-                rpFrameworks: 'RP Frameworks',
-                attachables: 'Attachables',
-                knowledge: 'Knowledge',
-                contactTitle: 'Get in Touch',
-                contactSubtitle: 'Professional contact information and project references.',
-                email: 'Email',
-                discord: 'Discord',
-                github: 'GitHub'
-            },
-            de: {
-                skip: 'Zum Inhalt springen',
-                toggleTheme: 'Design umschalten',
-                navWork: 'Arbeiten',
-                navUiGallery: 'UI-Galerie',
-                navProfessionalActivity: 'Berufliche Tätigkeit',
-                navExperience: 'Erfahrung',
-                navContact: 'Kontakt',
-                heroDescription: 'Selbstständiger Minecraft Bedrock-Entwickler mit Schwerpunkt auf Marketplace-Inhalten, kommerziellen Kundenprojekten und Entwicklung von Spielsystemen.',
-                viewWork: 'Meine Arbeiten ansehen',
-                workTitle: 'Arbeiten',
-                workSubtitle: 'Veröffentlichte Minecraft Bedrock Marketplace-Inhalte',
-                filterAll: 'Alle',
-                tagAddon: 'Add-On',
-                tagLeadRole: 'Leitende Rolle',
-                tagTeamWork: 'Teamarbeit',
-                tagWorld: 'World',
-                tagFree: 'KOSTENLOS',
-                tagUpdate: 'Update',
-                tagFullStack: 'Full-Stack',
-                featured: 'Empfohlen',
-                checkOut: 'Ansehen',
-                noResults: 'Keine Projekte mit diesem Filter gefunden.',
-                unpublishedStatus: 'Separate unveröffentlichte Pipeline',
-                unpublishedCount: '+9 abgeschlossene unveröffentlichte Projekte',
-                unpublishedText: 'Diese Projekte sind abgeschlossen, gehören aber nicht zu den oben gezeigten veröffentlichten Inhalten. Erwartete Veröffentlichungszeiträume:',
-                uiGalleryTitle: 'UI-Galerie',
-                uiGallerySubtitle: 'Interface-Arbeiten für Minecraft Bedrock-Erlebnisse',
-                professionalActivityTitle: 'Berufliche Tätigkeit',
-                activeSince: 'Aktiv seit',
-                mainActivity: 'Haupttätigkeit',
-                minecraftDevelopment: 'Minecraft Bedrock-Entwicklung',
-                activityType: 'Art',
-                contractorType: 'Selbstständig / unabhängiger Auftragnehmer',
-                clients: 'Kunden',
-                clientCountries: 'Deutschland, VAE, Frankreich, Österreich, UK usw.',
-                experienceTitle: 'Erfahrung',
-                experienceSubtitle: 'Teams und Fähigkeiten, die ich entwickelt habe',
-                teams: 'Teams',
-                skills: 'Fähigkeiten',
-                skillWork: 'Arbeit',
-                teamwork: 'Teamarbeit',
-                communication: 'Kommunikation',
-                availability: 'Verfügbarkeit',
-                flexibility: 'Flexibilität',
-                behaviour: 'Behaviour',
-                scriptApi: 'Script API',
-                behaviourPacks: 'Behaviour Packs',
-                blocksItems: 'Blocks & Items',
-                complexEntities: 'Complex Entities',
-                resource: 'Resource',
-                entityMaterials: 'Entity Materials',
-                jsonUi: 'Json-UI',
-                rpFrameworks: 'RP Frameworks',
-                attachables: 'Attachables',
-                knowledge: 'Kenntnisse',
-                contactTitle: 'Kontakt aufnehmen',
-                contactSubtitle: 'Berufliche Kontaktinformationen und Projektreferenzen.',
-                email: 'E-Mail',
-                discord: 'Discord',
-                github: 'GitHub'
-            },
-            fr: {
-                skip: 'Aller au contenu',
-                toggleTheme: 'Changer de thème',
-                navWork: 'Travail',
-                navUiGallery: 'Galerie UI',
-                navProfessionalActivity: 'Activité professionnelle',
-                navExperience: 'Expérience',
-                navContact: 'Contact',
-                heroDescription: 'Développeur indépendant Minecraft Bedrock spécialisé dans le contenu Marketplace, les projets commerciaux clients et le développement de systèmes de jeu.',
-                viewWork: 'Voir mon travail',
-                workTitle: 'Travail',
-                workSubtitle: 'Contenu Minecraft Bedrock Marketplace publié',
-                filterAll: 'Tous',
-                tagAddon: 'Add-On',
-                tagLeadRole: 'Rôle principal',
-                tagTeamWork: 'Travail d\'équipe',
-                tagWorld: 'Monde',
-                tagFree: 'GRATUIT',
-                tagUpdate: 'Mise à jour',
-                tagFullStack: 'Full-Stack',
-                featured: 'Mis en avant',
-                checkOut: 'Découvrir',
-                noResults: 'Aucun projet trouvé avec ce filtre.',
-                unpublishedStatus: 'Pipeline non publié séparé',
-                unpublishedCount: '+9 projets terminés non publiés',
-                unpublishedText: 'Ces projets sont terminés mais ne font pas partie du contenu publié affiché ci-dessus. Fenêtres de publication prévues :',
-                uiGalleryTitle: 'Galerie UI',
-                uiGallerySubtitle: 'Travail d\'interface pour des expériences Minecraft Bedrock',
-                professionalActivityTitle: 'Activité professionnelle',
-                activeSince: 'Actif depuis',
-                mainActivity: 'Activité principale',
-                minecraftDevelopment: 'Développement Minecraft Bedrock',
-                activityType: 'Type',
-                contractorType: 'Auto-entrepreneur / prestataire indépendant',
-                clients: 'Clients',
-                clientCountries: 'Allemagne, Émirats arabes unis, France, Autriche, UK, etc.',
-                experienceTitle: 'Expérience',
-                experienceSubtitle: 'Équipes et compétences développées',
-                teams: 'Équipes',
-                skills: 'Compétences',
-                skillWork: 'Travail',
-                teamwork: 'Travail d\'équipe',
-                communication: 'Communication',
-                availability: 'Disponibilité',
-                flexibility: 'Flexibilité',
-                behaviour: 'Comportement',
-                scriptApi: 'Script API',
-                behaviourPacks: 'Packs de comportements',
-                blocksItems: 'Blocs et objets',
-                complexEntities: 'Entités complexes',
-                resource: 'Ressource',
-                entityMaterials: 'Matériaux d\'entités',
-                jsonUi: 'Json-UI',
-                rpFrameworks: 'Frameworks RP',
-                attachables: 'Attachables',
-                knowledge: 'Connaissances',
-                contactTitle: 'Prendre contact',
-                contactSubtitle: 'Coordonnées professionnelles et références de projets.',
-                email: 'Email',
-                discord: 'Discord',
-                github: 'GitHub'
-            }
-        };
-
-        function setLanguage(language) {
-            document.documentElement.lang = language;
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const translatedText = translations[language][element.dataset.i18n];
-                if (translatedText) element.textContent = translatedText;
-            });
-            document.querySelectorAll('[data-i18n-aria]').forEach(element => {
-                const translatedText = translations[language][element.dataset.i18nAria];
-                if (translatedText) element.setAttribute('aria-label', translatedText);
-            });
-            document.querySelectorAll('.language-btn').forEach(button => {
-                button.classList.toggle('active', button.dataset.language === language);
-            });
-            localStorage.setItem('language', language);
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        (function() {
-            const savedTheme = localStorage.getItem('theme') ||
-                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-
-        setLanguage(localStorage.getItem('language') || 'en');
-
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -1772,6 +845,80 @@
                 }, 300);
             });
         });
+        let heroScene = document.querySelector('.hero-scene')
+        heroScene.setAttribute('src', featuredAddon.querySelector('.project-image img').getAttribute('src'))
+        heroScene.setAttribute('alt', featuredAddon.querySelector('h3').textContent)
+        document.querySelector('.hero-project strong').textContent = featuredAddon.querySelector('h3').textContent
+        let pageBackground = document.querySelector('.page-background')
+        let backgroundSource = heroScene.getAttribute('src')
+        pageBackground.querySelector('.page-background-layer').style.backgroundImage = `url("${backgroundSource}")`
+        let backgroundRevision = 0
+        let backgroundFramePending = false
+        pageBackground.addEventListener('transitionend', event => {
+            if (event.propertyName === 'opacity' && event.target.classList.contains('page-background-layer') && !event.target.classList.contains('active')) event.target.remove()
+        })
+        for (let eventName of ['scroll', 'resize', 'pageshow']) window.addEventListener(eventName, () => {
+            if (backgroundFramePending) return
+            backgroundFramePending = true
+            requestAnimationFrame(() => {
+                backgroundFramePending = false
+                let currentProject = document.querySelector('#hero').getBoundingClientRect().bottom > 0 ? document.querySelector('#hero') : null
+                for (let project of projects) {
+                    if (project.classList.contains('hidden') || project.style.display === 'none') continue
+                    let projectBounds = project.getBoundingClientRect()
+                    if (projectBounds.top > window.innerHeight * 0.6 || projectBounds.bottom <= 0) continue
+                    currentProject = project
+                }
+                if (!currentProject) return
+                let thumbnailSource = currentProject.querySelector('img').getAttribute('src')
+                if (thumbnailSource === backgroundSource) return
+                backgroundSource = thumbnailSource
+                let requestedRevision = ++backgroundRevision
+                let backgroundImage = new Image()
+                backgroundImage.onload = () => {
+                    if (requestedRevision !== backgroundRevision) return
+                    let backgroundLayer = document.createElement('div')
+                    backgroundLayer.className = 'page-background-layer'
+                    backgroundLayer.style.backgroundImage = `url("${thumbnailSource}")`
+                    pageBackground.append(backgroundLayer)
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        if (requestedRevision !== backgroundRevision) return backgroundLayer.remove()
+                        for (let previousLayer of pageBackground.querySelectorAll('.page-background-layer')) {
+                            if (previousLayer === backgroundLayer) continue
+                            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) previousLayer.remove()
+                            else previousLayer.classList.remove('active')
+                        }
+                        backgroundLayer.classList.add('active')
+                    }))
+                }
+                backgroundImage.src = thumbnailSource
+            })
+        }, { passive: true })
+        for (let eventName of ['contextmenu', 'dragstart', 'selectstart']) document.addEventListener(eventName, event => {
+            if (!(event.target instanceof Element) || !event.target.closest('.contact-item')) event.preventDefault()
+        }, { capture: true })
+        for (let eventName of ['copy', 'cut']) document.addEventListener(eventName, event => {
+            let selection = window.getSelection()
+            if (!selection || !selection.rangeCount) {
+                if (!(event.target instanceof Element) || !event.target.closest('.contact-item')) event.preventDefault()
+                return
+            }
+            let contactGrid = document.querySelector('.contact-grid')
+            for (let i = 0; i < selection.rangeCount; i++) if (!contactGrid.contains(selection.getRangeAt(i).commonAncestorContainer)) return event.preventDefault()
+        }, { capture: true })
+        document.addEventListener('keydown', event => {
+            if ((!event.ctrlKey && !event.metaKey) || event.altKey) return
+            if (event.key.toLowerCase() === 's') return event.preventDefault()
+            if (event.key.toLowerCase() !== 'a') return
+            event.preventDefault()
+            let selection = window.getSelection()
+            let contactGrid = document.querySelector('.contact-grid')
+            if (!selection || (!(event.target instanceof Element && event.target.closest('.contact-item')) && !contactGrid.contains(selection.anchorNode))) return
+            let contactRange = document.createRange()
+            contactRange.selectNodeContents(contactGrid)
+            selection.removeAllRanges()
+            selection.addRange(contactRange)
+        }, { capture: true })
     </script>
 </body>
 </html>
