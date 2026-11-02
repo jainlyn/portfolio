@@ -8,18 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        @property --theme-hue { syntax: "<number>"; inherits: true; initial-value: 206; }
         :root {
+            --theme-hue: 206;
+            transition: --theme-hue 0.5s ease-in-out;
             color-scheme: dark;
-            --bg-primary: #101b1a;
-            --text-primary: #eef2e6;
-            --text-secondary: #b4c1b6;
-            --accent: #c0dc95;
-            --accent-soft: rgba(168, 205, 121, 0.12);
-            --glass: rgba(31, 48, 44, 0.58);
-            --glass-hover: rgba(45, 64, 54, 0.7);
-            --glass-border: rgba(226, 244, 205, 0.2);
-            --border-subtle: rgba(218, 236, 208, 0.13);
-            --glass-shadow: inset 0 1px 0 rgba(246, 255, 233, 0.09), 0 16px 48px rgba(0, 0, 0, 0.16);
+            --bg-primary: hsl(var(--theme-hue) 25.58% 8.43%);
+            --text-primary: hsl(var(--theme-hue) 31.58% 92.55%);
+            --text-secondary: hsl(var(--theme-hue) 9.49% 73.14%);
+            --accent: hsl(var(--theme-hue) 50.35% 72.35%);
+            --accent-soft: hsl(var(--theme-hue) 45.65% 63.92% / 0.12);
+            --glass: hsl(var(--theme-hue) 21.52% 15.49% / 0.58);
+            --glass-hover: hsl(var(--theme-hue) 17.43% 21.37% / 0.7);
+            --glass-border: hsl(var(--theme-hue) 63.93% 88.04% / 0.2);
+            --border-subtle: hsl(var(--theme-hue) 42.42% 87.06% / 0.13);
+            --glass-shadow: inset 0 1px 0 hsl(var(--theme-hue) 100.00% 95.69% / 0.09), 0 16px 48px rgba(0, 0, 0, 0.16);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; scroll-padding-top: 140px; }
@@ -35,21 +38,21 @@
             transition: background-color 0.3s, color 0.3s;
         }
         .page-background { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--bg-primary); }
-        .page-background-layer { position: absolute; inset: -80px; background-position: center; background-size: cover; filter: blur(48px); opacity: 0; transition: opacity 0.9s ease-in-out; }
+        .page-background-layer { position: absolute; inset: -80px; background-position: center; background-size: cover; filter: blur(48px); opacity: 0; transition: opacity 0.5s ease-in-out; }
         .page-background-layer.active { opacity: 1; }
-        .page-background::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 18, 18, 0.72), rgba(10, 18, 18, 0.82)); }
+        .page-background::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, hsl(var(--theme-hue) 28.57% 5.49% / 0.72), hsl(var(--theme-hue) 28.57% 5.49% / 0.82)); }
         button, a { -webkit-tap-highlight-color: transparent; }
         button { font: inherit; }
         a { color: inherit; }
         a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
         .skip-link { position: fixed; top: -100px; left: 24px; z-index: 1001; padding: 12px 20px; border-radius: 16px; background: var(--text-primary); color: var(--bg-primary); text-decoration: none; }
         .skip-link:focus { top: 24px; }
-        nav { position: fixed; top: 24px; left: 32px; right: 32px; max-width: 1392px; margin: auto; z-index: 1000; color: #f4f7ec; }
+        nav { position: fixed; top: 24px; left: 32px; right: 32px; max-width: 1392px; margin: auto; z-index: 1000; color: hsl(var(--theme-hue) 40.74% 94.71%); }
         .nav-container { display: grid; grid-template-columns: minmax(140px, 1fr) auto; align-items: center; gap: 12px; }
         .nav-brand { justify-self: start; font-size: 24px; font-weight: 700; letter-spacing: -1px; text-decoration: none; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 20px; }
         .nav-brand, nav ul {
-            background: linear-gradient(140deg, rgba(42, 58, 43, 0.72), rgba(14, 30, 27, 0.76));
-            border: 1px solid rgba(237, 249, 224, 0.3);
+            background: linear-gradient(140deg, hsl(var(--theme-hue) 16.00% 19.61% / 0.72), hsl(var(--theme-hue) 36.36% 8.63% / 0.76));
+            border: 1px solid hsl(var(--theme-hue) 67.57% 92.75% / 0.3);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 28px rgba(0, 0, 0, 0.16);
             -webkit-backdrop-filter: blur(24px) saturate(145%);
             backdrop-filter: blur(24px) saturate(145%);
@@ -57,9 +60,9 @@
         nav ul { display: flex; gap: 2px; padding: 5px; border-radius: 24px; list-style: none; }
         nav ul li { flex-shrink: 0; }
         nav ul a { display: block; padding: 10px 12px; border-radius: 18px; font-size: 12px; font-weight: 500; white-space: nowrap; text-decoration: none; transition: background-color 0.2s, color 0.2s; }
-        nav ul a:hover { background: rgba(244, 253, 224, 0.12); }
-        nav ul a.active { background: rgba(237, 247, 218, 0.9); color: #1b3225; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12); }
-        nav a:focus-visible, nav button:focus-visible { outline-color: #e5f5b9; }
+        nav ul a:hover { background: hsl(var(--theme-hue) 87.88% 93.53% / 0.12); }
+        nav ul a.active { background: hsl(var(--theme-hue) 64.44% 91.18% / 0.9); color: hsl(var(--theme-hue) 29.87% 15.10%); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12); }
+        nav a:focus-visible, nav button:focus-visible { outline-color: hsl(var(--theme-hue) 75.00% 84.31%); }
         section { position: relative; max-width: 1320px; margin: 0 auto; padding: 96px 32px; }
         section:not(.hero) + section::before { content: ""; position: absolute; top: 0; left: 32px; right: 32px; height: 1px; background: var(--border-subtle); }
         .hero {
@@ -71,31 +74,31 @@
             align-items: flex-end;
             overflow: hidden;
             isolation: isolate;
-            color: #f3f6e9;
-            background: #172424;
+            color: hsl(var(--theme-hue) 41.94% 93.92%);
+            background: hsl(var(--theme-hue) 22.03% 11.57%);
         }
-        .hero-scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% center; z-index: -3; }
-        .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(5, 14, 19, 0.33), transparent 28%, transparent 58%, rgba(6, 18, 16, 0.53)), linear-gradient(90deg, rgba(9, 21, 19, 0.18), transparent 65%); }
-        .hero-atmosphere { position: absolute; bottom: 0; left: 0; right: 0; height: 170px; z-index: -1; pointer-events: none; background: rgba(13, 29, 25, 0.16); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); -webkit-mask-image: linear-gradient(transparent, #000); mask-image: linear-gradient(transparent, #000); }
+        .hero-scene { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 52% center; z-index: -3; pointer-events: none; }
+        .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, hsl(var(--theme-hue) 58.33% 4.71% / 0.33), transparent 28%, transparent 58%, hsl(var(--theme-hue) 50.00% 4.71% / 0.53)), linear-gradient(90deg, hsl(var(--theme-hue) 40.00% 5.88% / 0.18), transparent 65%); }
+        .hero-atmosphere { position: absolute; bottom: 0; left: 0; right: 0; height: 170px; z-index: -1; pointer-events: none; background: hsl(var(--theme-hue) 38.10% 8.24% / 0.16); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); -webkit-mask-image: linear-gradient(transparent, #000); mask-image: linear-gradient(transparent, #000); }
         .hero-content {
             position: relative;
             max-width: 450px;
             padding: 30px;
             border-radius: 30px;
-            background: linear-gradient(140deg, rgba(215, 240, 186, 0.13), rgba(11, 29, 27, 0.46));
-            border: 1px solid rgba(232, 248, 211, 0.32);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(255, 255, 255, 0.04), 0 24px 64px rgba(1, 13, 8, 0.25);
+            background: linear-gradient(140deg, hsl(var(--theme-hue) 64.29% 83.53% / 0.13), hsl(var(--theme-hue) 45.00% 7.84% / 0.46));
+            border: 1px solid hsl(var(--theme-hue) 72.55% 90.00% / 0.32);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(255, 255, 255, 0.04), 0 24px 64px hsl(var(--theme-hue) 85.71% 2.75% / 0.25);
             -webkit-backdrop-filter: blur(28px) saturate(140%);
             backdrop-filter: blur(28px) saturate(140%);
         }
         .hero h1 { font-size: clamp(48px, 5vw, 76px); font-weight: 600; line-height: 1.05; letter-spacing: -0.065em; margin-bottom: 14px; }
-        .hero-subtitle { color: #e0efc9; font-size: 15px; font-weight: 500; margin-bottom: 16px; }
-        .hero-description { color: #d4dfd2; font-size: 14px; line-height: 1.75; margin-bottom: 25px; }
-        .hero-cta { display: inline-flex; align-items: center; gap: 24px; padding: 12px 18px; border-radius: 16px; background: rgba(235, 246, 217, 0.91); border: 1px solid rgba(255, 255, 255, 0.55); color: #20372b; font-size: 13px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 #fff, 0 4px 18px rgba(1, 13, 8, 0.14); transition: background-color 0.2s, transform 0.2s; }
-        .hero-cta:hover { background: #f5ffe8; transform: translateY(-2px); }
-        .hero-cta:focus-visible { outline-color: #e5f5b9; }
-        .hero-project { margin-left: auto; padding: 16px 22px; border-radius: 22px; border: 1px solid rgba(231, 247, 215, 0.25); background: rgba(20, 38, 31, 0.34); -webkit-backdrop-filter: blur(24px) saturate(140%); backdrop-filter: blur(24px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 28px rgba(0, 0, 0, 0.14); }
-        .hero-project-status { display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: #cfdfb9; margin-bottom: 3px; }
+        .hero-subtitle { color: hsl(var(--theme-hue) 54.29% 86.27%); font-size: 15px; font-weight: 500; margin-bottom: 16px; }
+        .hero-description { color: hsl(var(--theme-hue) 16.88% 84.90%); font-size: 14px; line-height: 1.75; margin-bottom: 25px; }
+        .hero-cta { display: inline-flex; align-items: center; gap: 24px; padding: 12px 18px; border-radius: 16px; background: hsl(var(--theme-hue) 61.70% 90.78% / 0.91); border: 1px solid rgba(255, 255, 255, 0.55); color: hsl(var(--theme-hue) 26.44% 17.06%); font-size: 13px; font-weight: 600; text-decoration: none; box-shadow: inset 0 1px 0 #fff, 0 4px 18px hsl(var(--theme-hue) 85.71% 2.75% / 0.14); transition: background-color 0.2s, transform 0.2s; }
+        .hero-cta:hover { background: hsl(var(--theme-hue) 100.00% 95.49%); transform: translateY(-2px); }
+        .hero-cta:focus-visible { outline-color: hsl(var(--theme-hue) 75.00% 84.31%); }
+        .hero-project { margin-left: auto; padding: 16px 22px; border-radius: 22px; border: 1px solid hsl(var(--theme-hue) 66.67% 90.59% / 0.25); background: hsl(var(--theme-hue) 31.03% 11.37% / 0.34); -webkit-backdrop-filter: blur(24px) saturate(140%); backdrop-filter: blur(24px) saturate(140%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 28px rgba(0, 0, 0, 0.14); }
+        .hero-project-status { display: block; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: hsl(var(--theme-hue) 37.25% 80.00%); margin-bottom: 3px; }
         .hero-project strong { font-size: 19px; font-weight: 500; letter-spacing: -0.04em; }
         .section-header { margin-bottom: 36px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
         .section-header h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 500; line-height: 1.15; letter-spacing: -0.055em; }
@@ -117,27 +120,28 @@
         .project-image { position: relative; margin: 0; overflow: hidden; background: var(--accent-soft); }
         .project-image img { display: block; width: 100%; height: auto; }
         .project.featured { border-color: var(--accent); }
-        .featured-badge { position: absolute; top: 24px; left: 24px; z-index: 1; padding: 9px 15px; border: 1px solid rgba(238, 252, 218, 0.4); border-radius: 14px; background: rgba(17, 39, 27, 0.58); color: #eff5e3; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+        .featured-badge { position: absolute; top: 24px; left: 24px; z-index: 1; padding: 9px 15px; border: 1px solid hsl(var(--theme-hue) 85.00% 92.16% / 0.4); border-radius: 14px; background: hsl(var(--theme-hue) 39.29% 10.98% / 0.58); color: hsl(var(--theme-hue) 47.37% 92.55%); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
         .project-info {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             align-items: start;
-            gap: 12px 28px;
+            gap: 12px 0;
             margin: 0;
-            padding: 24px 28px;
+            padding: 0;
             border-top: 1px solid var(--border-subtle);
         }
-        .project-heading { min-width: 0; grid-column: 1; }
+        .project-heading { min-width: 0; grid-column: 1; padding: 24px 28px 0; }
         .project-details { display: contents; }
         .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
         .tag { display: inline-block; padding: 5px 10px; border: 1px solid var(--border-subtle); border-radius: 9px; background: var(--accent-soft); color: var(--text-secondary); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
         .tag.leadrole, .tag.free, .tag.update { color: var(--accent); }
         .tag.year { color: var(--text-primary); background: var(--glass); }
         .project-info h3 { font-size: clamp(24px, 2.7vw, 34px); font-weight: 500; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
-        .project-info p { grid-column: 1; max-width: 80ch; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
-        .project-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; padding: 12px 16px; border-radius: 14px; border: 1px solid var(--border-subtle); background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background-color 0.2s, color 0.2s; }
-        .project-link:hover { background: var(--text-primary); color: var(--bg-primary); }
-        .project-link .arrow { font-size: 20px; line-height: 1; }
+        .project-info p { grid-column: 1; max-width: 80ch; padding: 0 28px 24px; color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+        .project-link { grid-column: 2; grid-row: 1 / span 2; align-self: stretch; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-width: 180px; padding: 24px; border-left: 1px solid hsl(var(--theme-hue) 42.42% 87.06% / 0.08); background: linear-gradient(135deg, hsl(var(--theme-hue) 45.65% 63.92% / 0.07), hsl(var(--theme-hue) 45.65% 63.92% / 0.02)); background-color: transparent; color: var(--accent); font-size: 12px; font-weight: 600; white-space: nowrap; text-decoration: none; transition: background-color 0.2s, border-color 0.2s, color 0.2s; }
+        a.project-link:hover { background-color: hsl(var(--theme-hue) 45.65% 63.92% / 0.08); border-color: var(--glass-border); color: var(--text-primary); }
+        .project-link .arrow { display: block; flex-shrink: 0; font-size: 32px; font-weight: 300; line-height: 1; transition: transform 0.2s ease; }
+        a.project-link:hover .arrow { transform: translate(4px, -4px); }
         .future-projects { grid-column: 1 / -1; padding: 36px; border-radius: 26px; }
         .future-projects-status { display: inline-block; color: var(--accent); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
         .future-projects-count { font-size: clamp(24px, 3vw, 36px); font-weight: 500; letter-spacing: -0.045em; margin-bottom: 12px; }
@@ -196,9 +200,11 @@
             .hero-project-status { font-size: 9px; }
             .projects-grid { gap: 48px; }
             .project { border-radius: 22px; }
-            .project-info { grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+            .project-info { grid-template-columns: 1fr; gap: 14px 0; }
+            .project-heading { padding: 22px 22px 0; }
+            .project-info p { padding: 0 22px 8px; }
             .project-info h3 { font-size: 26px; }
-            .project-link { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 4px; }
+            .project-link { grid-column: 1; grid-row: auto; min-width: 0; min-height: 76px; padding: 22px; border-left: 0; border-top: 1px solid hsl(var(--theme-hue) 42.42% 87.06% / 0.08); }
             .featured-badge { top: 14px; left: 14px; padding: 7px 12px; }
             .contact-grid { grid-template-columns: 1fr; }
             .ui-gallery-grid { columns: 1; }
@@ -226,7 +232,7 @@
 </head>
 <body>
     <div class="page-background" aria-hidden="true">
-        <div class="page-background-layer active" style="background-image: url('resources/better_structure_keyart_v2_noWM.png')"></div>
+        <div class="page-background-layer active" style="background-image: url('resources/EckosHubTHumbnail.png')"></div>
     </div>
     <a href="#hero" class="skip-link">Skip to content</a>
     <nav aria-label="Main navigation">
@@ -241,8 +247,10 @@
             </ul>
         </div>
     </nav>
-    <section class="hero" id="hero">
-        <img draggable="false" class="hero-scene" src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures" fetchpriority="high" width="1920" height="1080">
+    <section class="hero" id="hero" data-theme-hue="206">
+        <video class="hero-scene" autoplay muted loop playsinline preload="auto" poster="resources/EckosHubTHumbnail.png" width="1280" height="720" aria-hidden="true" disablepictureinpicture disableremoteplayback>
+            <source src="resources/eckos-hub-banner.mp4" type="video/mp4">
+        </video>
         <div class="hero-atmosphere" aria-hidden="true"></div>
         <div class="hero-content">
             <h1>Jainlyn</h1>
@@ -252,7 +260,7 @@
         </div>
         <div class="hero-project">
             <span class="hero-project-status">Featured</span>
-            <strong>Better Structures</strong>
+            <strong>Ecko's Hub</strong>
         </div>
     </section>
 
@@ -275,9 +283,55 @@
         <div class="no-results">No projects found with that filter.</div>
 
         <div class="projects-grid">
-            <article class="project featured" aria-labelledby="project-better-structures">
+            <article class="project featured" aria-labelledby="project-eckos-hub" data-theme-hue="206">
                 <figure class="project-image">
                     <span class="featured-badge">Featured</span>
+                    <img draggable="false" src="resources/EckosHubTHumbnail.png" alt="Ecko's Hub" loading="lazy" decoding="async" width="1920" height="1080">
+                </figure>
+                <div class="project-info">
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag world">World</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-eckos-hub">Ecko's Hub</h3>
+                    </div>
+                    <div class="project-details">
+                        <p>Coming soon...</p>
+                        <a href="https://youtu.be/hZe6GpQe1gU" class="project-link" target="_blank">
+                            <span>Watch Trailer</span> <span class="arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project" aria-labelledby="project-archies-dinos" data-theme-hue="206">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/ArchiesDinosaursThumbnail.jpg" alt="Archie's Dinos" loading="lazy" decoding="async" width="1280" height="720">
+                </figure>
+                <div class="project-info">
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2026</span>
+                        </div>
+                        <h3 id="project-archies-dinos">Archie's Dinos</h3>
+                    </div>
+                    <div class="project-details">
+                        <p>Coming soon...</p>
+                        <a href="https://youtu.be/i6LJ0rvwOuM" class="project-link" target="_blank">
+                            <span>Watch Trailer</span> <span class="arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project" aria-labelledby="project-better-structures" data-theme-hue="43">
+                <figure class="project-image">
                     <img draggable="false" src="resources/better_structure_keyart_v2_noWM.png" alt="Better Structures" loading="lazy" decoding="async">
                 </figure>
                 <div class="project-info">
@@ -293,13 +347,13 @@
                     <div class="project-details">
                         <p>Better Structures Add-On packs your OWN WORLD with 10+ epic structures! Hunt through fresh dungeons and upgraded vanilla sites for fierce fights and hidden treasure.</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/blocklab-studios/better-structures-2.0-add--on/5e6039aa-a4a1-4508-880c-564129ce04bc" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-bosses-rise">
+            <article class="project" aria-labelledby="project-bosses-rise" data-theme-hue="45">
                 <figure class="project-image">
                     <img draggable="false" src="resources/bossesRiseThumbnail.jpg" alt="Bosses Rise" loading="lazy" decoding="async">
                 </figure>
@@ -316,13 +370,13 @@
                     <div class="project-details">
                         <p>Bosses' Rise Add-On adds 7 epic Souls-like bosses w/ unique AI behavior, new animations, weapons, armors &amp; more!</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/block-factory/bosses-rise-add--on/d4e0c8e8-fce1-4828-94f0-764b5431e5a5" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-biomes-expanded">
+            <article class="project" aria-labelledby="project-biomes-expanded" data-theme-hue="83">
                 <figure class="project-image">
                     <img draggable="false" src="resources/BiomesExpanded.jpg" alt="Biomes Expanded" loading="lazy" decoding="async">
                 </figure>
@@ -340,13 +394,13 @@
                     <div class="project-details">
                         <p>Add 20 NEW BIOMES to ANY WORLD! This Add-On overhauls the Overworld with plenty of new things to explore.</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/biomes-expanded/443b7d67-49cb-4255-ae6a-d83c80d8cccc" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-blockpack-add-on">
+            <article class="project" aria-labelledby="project-blockpack-add-on" data-theme-hue="46">
                 <figure class="project-image">
                     <img draggable="false" src="resources/blockpack.png" alt="BlockPack Add-on" loading="lazy" decoding="async">
                 </figure>
@@ -362,13 +416,13 @@
                     <div class="project-details">
                         <p>BlockPack Add-on adds +1000 CRAFTABLE &amp; 50 unique FUNCTIONAL new blocks</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp?id=8970dbd7-a3e1-4fc9-b74a-05e6acc6830f" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-caves-expanded-add-on">
+            <article class="project" aria-labelledby="project-caves-expanded-add-on" data-theme-hue="25">
                 <figure class="project-image">
                     <img draggable="false" src="resources/cavesExpanded.png" alt="Caves Expanded Add-On" loading="lazy" decoding="async">
                 </figure>
@@ -385,13 +439,13 @@
                     <div class="project-details">
                         <p>Expand your world with 6 new cave biomes. These biomes add new mobs, dungeons, mechanics, items and blocks to ANY world!</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/levelatics/caves-expanded-add--on/211125ac-e526-452b-87e5-1803eb3f3973" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-utility-tools">
+            <article class="project" aria-labelledby="project-utility-tools" data-theme-hue="16">
                 <figure class="project-image">
                     <img draggable="false" src="resources/UtilityTools.png" alt="Utility Tools" loading="lazy" decoding="async">
                 </figure>
@@ -408,13 +462,13 @@
                     <div class="project-details">
                         <p>Adds on 40+ craftable tools! your world UtilityTools Add-On<br><br>+ Backpack, Drill, Chainsaw, Dynamic Light, Warp pad<br>+ Deepforge, Training dummy, Multitools, XP storage</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/block-factory/utility-tools-add--on/2f9ba826-14c9-43e2-973e-3364d67ee1c0" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-ghosts">
+            <article class="project" aria-labelledby="project-ghosts" data-theme-hue="148">
                 <figure class="project-image">
                     <img draggable="false" src="resources/ghosts.png" alt="Ghosts" loading="lazy" decoding="async">
                 </figure>
@@ -431,13 +485,13 @@
                     <div class="project-details">
                         <p>Trapped in a haunted house, you must explore, solve puzzles, and collect items to banish terrifying ghosts! Outrun the ghosts and survive the night. Your escape depends on it.</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/rareloot/ghosts/1743bdbe-f0a3-47f3-b973-be13512311ff" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-monsters-1-2-add-on">
+            <article class="project" aria-labelledby="project-monsters-1-2-add-on" data-theme-hue="285">
                 <figure class="project-image">
                     <img draggable="false" src="resources/monsters.png" alt="Monsters 1.2 Add-On" loading="lazy" decoding="async">
                 </figure>
@@ -454,13 +508,13 @@
                     <div class="project-details">
                         <p>Add 20+ NEW MONSTERS to ANY WORLD! Find monsters across the world with naturally spawning biomes and 4 challenging bosses.</p>
                         <a href="https://marketplace.minecraft.net/en-us/pdp?id=ff268116-6450-44ed-a4b3-d25c1672b825" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-mythical-conquest-add-on">
+            <article class="project" aria-labelledby="project-mythical-conquest-add-on" data-theme-hue="275">
                 <figure class="project-image">
                     <img draggable="false" src="resources/mythicalConquest.jpg" alt="Mythical Conquest Add-On" loading="lazy" decoding="async">
                 </figure>
@@ -476,7 +530,7 @@
                     <div class="project-details">
                         <p>Embark on a medieval adventure filled with towering fantasy creatures! Test your strength in this upgraded survival experience.</p>
                         <a href="https://www.minecraft.net/en-us/marketplace/pdp/pathway-studios/mythical-conquest/e6e88bdf-4e9d-4860-91e2-b9cfd51a66f0" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
@@ -500,7 +554,7 @@
                     <div class="project-details">
                         <p>Coming soon...</p>
                         <a href="#" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
@@ -522,7 +576,7 @@
                     <div class="project-details">
                         <p>Coming soon...</p>
                         <a href="#" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
@@ -544,13 +598,36 @@
                     <div class="project-details">
                         <p>Coming soon...</p>
                         <a href="#" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-enderman-expansion-add-on">
+            <article class="project" aria-labelledby="project-caves-fire-and-ice" data-theme-hue="206">
+                <figure class="project-image">
+                    <img draggable="false" src="resources/CavesFireAndIceThumbnail.jpg" alt="CAVES: FIRE &amp; ICE" loading="lazy" decoding="async" width="800" height="450">
+                </figure>
+                <div class="project-info">
+                    <div class="project-heading">
+                        <div class="project-tags">
+                            <span class="tag addon">Add-On</span>
+                            <span class="tag fullstack">Full-Stack</span>
+                            <span class="tag collaboration">Team-Work</span>
+                            <span class="tag year">2025</span>
+                        </div>
+                        <h3 id="project-caves-fire-and-ice">CAVES: FIRE &amp; ICE</h3>
+                    </div>
+                    <div class="project-details">
+                        <p>CAVES: FIRE &amp; ICE makes the underground the best part of your world... vast, dangerous &amp; alive.<br>- Explore endless caves, randomly generated with INFINITE variations<br>- Fight new bosses &amp; mobs, or tame loyal companions<br>- Mine new ores; forge armor, weapons &amp; tools<br>- VFX &amp; Dynamic Lights<br>Transforms any world, new or existing. YOUR WORLD will never be the same!</p>
+                        <a href="https://www.minecraft.net/en-us/marketplace/pdp/glorious-studios/cave-biomes-add--on/0be71edd-efc4-468e-8fef-b1c85c432295" class="project-link" target="_blank">
+                            <span>Check out</span> <span class="arrow">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project" aria-labelledby="project-enderman-expansion-add-on" data-theme-hue="275">
                 <figure class="project-image">
                     <img draggable="false" src="resources/endermanExpansion.jpg" alt="Enderman Expansion Add-On" loading="lazy" decoding="async">
                 </figure>
@@ -567,13 +644,13 @@
                     <div class="project-details">
                         <p>Harness the mysterious might of the End with Enderman Expansion! Command a new array of powerful Enderman abilities and face off against a formidable Ender Boss.</p>
                         <a href="https://arcaniumcreations.com/games/enderman-expansion-add-on/" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
             </article>
 
-            <article class="project" aria-labelledby="project-amethyst-expansion-add-on">
+            <article class="project" aria-labelledby="project-amethyst-expansion-add-on" data-theme-hue="276">
                 <figure class="project-image">
                     <img draggable="false" src="resources/amethystExpansion.jpg" alt="Amethyst Expansion Add-On" loading="lazy" decoding="async">
                 </figure>
@@ -589,7 +666,7 @@
                     <div class="project-details">
                         <p>Unleash the power of crystal with Amethyst Expansion! Master a brand-new arsenal of amethyst-infused tools and face off against powerful crystal-forged bosses.</p>
                         <a href="https://arcaniumcreations.com/games/amethyst-expansion-add-on/" class="project-link" target="_blank">
-                            <span>Check out</span> <span class="arrow">→</span>
+                            <span>Check out</span> <span class="arrow">↗</span>
                         </a>
                     </div>
                 </div>
@@ -678,15 +755,19 @@
                             <div class="skill-item"><span class="skill-dot behaviour"></span><span>Behaviour Packs</span></div>
                             <div class="skill-item"><span class="skill-dot behaviour"></span><span>Blocks & Items</span></div>
                             <div class="skill-item"><span class="skill-dot behaviour"></span><span>Complex Entities</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Worldgen &amp; Dimensions</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Custom Systems</span></div>
+                            <div class="skill-item"><span class="skill-dot behaviour"></span><span>Big Data Handling</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
                         <div class="skill-group-title resource">Resource</div>
                         <div class="skill-list">
                             <div class="skill-item"><span class="skill-dot resource"></span><span>Entity Materials</span></div>
-                            <div class="skill-item"><span class="skill-dot resource"></span><span>Json-UI</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>Json-UI &amp; DDUI</span></div>
                             <div class="skill-item"><span class="skill-dot resource"></span><span>RP Frameworks</span></div>
                             <div class="skill-item"><span class="skill-dot resource"></span><span>Attachables</span></div>
+                            <div class="skill-item"><span class="skill-dot resource"></span><span>ACs, RCs and more..</span></div>
                         </div>
                     </div>
                     <div class="skill-group">
@@ -712,7 +793,7 @@
         </div>
         <div class="professional-activity-grid">
             <div class="professional-activity-item">
-                <div class="professional-activity-label">Active since</div>
+                <div class="professional-activity-label">Marketplace Exclusive Since</div>
                 <div class="professional-activity-value">2025</div>
             </div>
             <div class="professional-activity-item">
@@ -789,7 +870,7 @@
         let featuredAddon = null;
 
         projects.forEach(project => {
-            if (project.classList.contains('featured') && project.querySelector('.tag.addon')) {
+            if (project.classList.contains('featured') && project.querySelector('.tag.addon, .tag.world')) {
                 if (featuredAddon) {
                     project.classList.remove('featured');
                     project.querySelector('.featured-badge')?.remove();
@@ -846,11 +927,10 @@
             });
         });
         let heroScene = document.querySelector('.hero-scene')
-        heroScene.setAttribute('src', featuredAddon.querySelector('.project-image img').getAttribute('src'))
-        heroScene.setAttribute('alt', featuredAddon.querySelector('h3').textContent)
+        heroScene.setAttribute('poster', featuredAddon.querySelector('.project-image img').getAttribute('src'))
         document.querySelector('.hero-project strong').textContent = featuredAddon.querySelector('h3').textContent
         let pageBackground = document.querySelector('.page-background')
-        let backgroundSource = heroScene.getAttribute('src')
+        let backgroundSource = heroScene.getAttribute('poster')
         pageBackground.querySelector('.page-background-layer').style.backgroundImage = `url("${backgroundSource}")`
         let backgroundRevision = 0
         let backgroundFramePending = false
@@ -863,16 +943,20 @@
             requestAnimationFrame(() => {
                 backgroundFramePending = false
                 let currentProject = document.querySelector('#hero').getBoundingClientRect().bottom > 0 ? document.querySelector('#hero') : null
+                let lastProjectBounds = null
                 for (let project of projects) {
                     if (project.classList.contains('hidden') || project.style.display === 'none') continue
                     let projectBounds = project.getBoundingClientRect()
+                    lastProjectBounds = projectBounds
                     if (projectBounds.top > window.innerHeight * 0.6 || projectBounds.bottom <= 0) continue
                     currentProject = project
                 }
+                if (lastProjectBounds && lastProjectBounds.bottom <= 0) currentProject = featuredAddon
                 if (!currentProject) return
-                let thumbnailSource = currentProject.querySelector('img').getAttribute('src')
+                let thumbnailSource = currentProject.id === 'hero' ? heroScene.getAttribute('poster') : currentProject.querySelector('img').getAttribute('src')
                 if (thumbnailSource === backgroundSource) return
                 backgroundSource = thumbnailSource
+                let projectHue = Number(currentProject.dataset.themeHue)
                 let requestedRevision = ++backgroundRevision
                 let backgroundImage = new Image()
                 backgroundImage.onload = () => {
@@ -888,6 +972,8 @@
                             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) previousLayer.remove()
                             else previousLayer.classList.remove('active')
                         }
+                        let currentHue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--theme-hue'))
+                        document.documentElement.style.setProperty('--theme-hue', currentHue + ((projectHue - currentHue) % 360 + 540) % 360 - 180)
                         backgroundLayer.classList.add('active')
                     }))
                 }
