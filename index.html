@@ -935,7 +935,11 @@
         let backgroundRevision = 0
         let backgroundFramePending = false
         pageBackground.addEventListener('transitionend', event => {
-            if (event.propertyName === 'opacity' && event.target.classList.contains('page-background-layer') && !event.target.classList.contains('active')) event.target.remove()
+            if (event.propertyName !== 'opacity' || !event.target.classList.contains('page-background-layer') || !event.target.classList.contains('active')) return
+            for (let previousLayer of pageBackground.querySelectorAll('.page-background-layer')) {
+                if (previousLayer === event.target) break
+                previousLayer.remove()
+            }
         })
         for (let eventName of ['scroll', 'resize', 'pageshow']) window.addEventListener(eventName, () => {
             if (backgroundFramePending) return
@@ -970,7 +974,6 @@
                         for (let previousLayer of pageBackground.querySelectorAll('.page-background-layer')) {
                             if (previousLayer === backgroundLayer) continue
                             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) previousLayer.remove()
-                            else previousLayer.classList.remove('active')
                         }
                         let currentHue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--theme-hue'))
                         document.documentElement.style.setProperty('--theme-hue', currentHue + ((projectHue - currentHue) % 360 + 540) % 360 - 180)
