@@ -50,6 +50,7 @@
         nav { position: fixed; top: 24px; left: 32px; right: 32px; max-width: 1392px; margin: auto; z-index: 1000; color: hsl(var(--theme-hue) 40.74% 94.71%); }
         .nav-container { display: grid; grid-template-columns: minmax(140px, 1fr) auto; align-items: center; gap: 12px; }
         .nav-brand { justify-self: start; font-size: 24px; font-weight: 700; letter-spacing: -1px; text-decoration: none; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3); padding: 8px 12px; border-radius: 20px; }
+        .last-updated { display: block; font-size: 10px; font-weight: 400; line-height: 1.5; letter-spacing: 0; color: var(--text-secondary); }
         .nav-brand, nav ul {
             background: linear-gradient(140deg, hsl(var(--theme-hue) 16.00% 19.61% / 0.72), hsl(var(--theme-hue) 36.36% 8.63% / 0.76));
             border: 1px solid hsl(var(--theme-hue) 67.57% 92.75% / 0.3);
@@ -237,7 +238,7 @@
     <a href="#hero" class="skip-link">Skip to content</a>
     <nav aria-label="Main navigation">
         <div class="nav-container">
-            <a href="#hero" class="nav-brand">Jainlyn</a>
+            <a href="#hero" class="nav-brand">Jainlyn<span class="last-updated">Last updated: <time id="portfolio-last-updated" datetime="2026-11-05">05-Nov-26</time></span></a>
             <ul>
                 <li><a href="#work" class="nav-link">Work</a></li>
                 <li><a href="#ui-gallery" class="nav-link">UI Gallery</a></li>
@@ -867,6 +868,15 @@
     </section>
 
     <script>
+        fetch(window.location.href, { method: 'HEAD', cache: 'no-cache' }).then(response => {
+            let lastModified = response.headers.get('Last-Modified')
+            if (!lastModified) return
+            let portfolioUpdatedAt = new Date(lastModified)
+            let updatedDateParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', day: '2-digit', month: 'short', year: '2-digit' }).formatToParts(portfolioUpdatedAt)
+            let lastUpdatedTime = document.querySelector('#portfolio-last-updated')
+            lastUpdatedTime.textContent = ['day', 'month', 'year'].map(partType => updatedDateParts.find(part => part.type === partType).value).join('-')
+            lastUpdatedTime.setAttribute('datetime', portfolioUpdatedAt.toISOString())
+        }).catch(error => console.warn('Unable to read the portfolio modification date.', error))
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
 
